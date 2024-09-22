@@ -1,0 +1,94 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "(1) SIMQL_PromptGenerator",
+            "type": "debugpy",
+            "request": "launch",
+//            "program": "${file}",
+            "program": "SIMQL_prompt_generator.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--output_path",    "genai_training/prompts",
+                "--input_path",     "genai_training/misc",
+                "--input_file",     "simql_prompt_templates.json",
+//                "--prompt_type",    "['mmp', 'mp2', 'mp3', 'mp4','ld2_refdate', 'simple2' ]",
+//                "--prompt_type",    "['ld2_cref_latest','ld2_cref_first','ld2_cref_all' ]",
+                "--prompt_type",    "['simple_mp2' ]",
+                "--number_of_rows", "50",
+                "-v"
+            ]
+        },
+        {
+            "name": "(2) SIMQL_TrainDataGeneratorV2",
+            "type": "debugpy",
+            "request": "launch",
+//            "program": "${file}",
+            "program": "SIMQL_TrainDataGeneratorV2.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-v",
+                "-n", "10",
+                "--path_prompt",    "genai_training/prompts",
+                "--path_template",  "genai_training/simql_templates",
+                "--out_path",       "genai_training/out_data",
+//                "--prompt_file",    "prompts_shorts2.txt",
+//                "--prompt_file",    "prompts_shorts_fehlerhaft.txt",
+                
+                "--read_all",
+//                "-s",
+//              "-c",
+
+            ]
+        },
+        {
+            "name": "(3) SIMQL NLP Training",
+            "type": "debugpy",
+            "request": "launch",
+//            "program": "${file}",
+            "program": "SIMQL_NLP_Train_V1.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-v",
+                "--path_train_data",    "genai_training/out_data",
+//                "--output_dir",         "genai_model/training_mmp",
+                "--output_dir",         "genai_model/t5_small_orig",
+                "--train_files",        "['train_data_20240915_2304_0000468']",
+//                "--train_files",        "['train_data_20240912_2026_0000117.json']",
+                
+                "--nlp_param_file",     "simql_nlp_params.json",
+                "--tokens_file",        "simql_tokens.txt",
+                "--resetModel",
+                "--train_model",        "T5-small",
+            ]
+        },
+        {
+            "name": "(4) SIMQL NLP",
+            "type": "debugpy",
+            "request": "launch",
+//            "program": "${file}",
+            "program": "SIMQL_NLP_V2.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-v",
+                "--path_train_data",    "genai_training/out_data",
+                "--path_model_out",     "genai_out",
+                "--path_model",         "genai_model/training_mmp",
+                "--simql_model_path",   "simql_model",
+                "--simql_model_file",   "model.tx",
+                "--nlp_param_file",     "simql_nlp_params.json",
+                "--translate_prompt_file", "translate_prompt_mmp.txt"
+            ]
+        },
+    ]
+}

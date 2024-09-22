@@ -1,0 +1,23 @@
+{
+    "device" : "cpu",
+    "torch_threads": 1,
+    "tokenizer_max_length" : 256,  
+    "fp16":false,                 
+    "temperature" : 0.2,
+    "num_beams" : 10,
+    "ngram_size" : 2,
+    "learning_rates" : [1e-5, 2e-5, 3e-5, 5e-5],
+    "learning_rate_idx" : 2,
+    "epochs" : 3,
+    "batch_size" : 16,
+    "eval_batch_size" : 8,
+    "split_size" : 0.25,
+    "weight_decay" : 0.01,
+    "save_total_limit" : 4,
+    "save_steps" : 10000,
+    "do_eval" : false,
+    "top_k" : 50,
+    "top_p" : 0.95,
+    "dataloader_num_workers" : 8,
+    "system" : "osx-m3"
+}

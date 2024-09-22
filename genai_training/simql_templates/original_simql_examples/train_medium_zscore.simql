@@ -1,0 +1,18 @@
+mmp ZSCORE
+ 
+    register "MMP_ZSCORE"
+     
+    section measurements:
+        mpX reference "MP_SIMQL_DEMONSTRATION1"
+ 
+    section variables:
+        define result
+         
+    section logic:
+
+        result = COMPUTE DATA(ref=[mpX], refdates=["CREF","CREF-1","CREF-2"], qualityLevel="U4", range=FIRST, math=ZSCORE) #here multiple refdates are defined, data for all will be loaded and combined per key before a statistical zscore value is calculated. the range of first means the first data submition to the reference data is loaded.
+    
+    section result:
+        save result
+     
+end #ZSCORE

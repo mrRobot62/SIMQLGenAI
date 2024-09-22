@@ -1,0 +1,239 @@
+#--------------------------------------------------------------
+# SIMQL Phrasen
+#
+# Die Idee ist, dem Modell sowohl komplexe prompts als auch einfache
+# Statements zum Lernen bereitzustellen. Das macht das ganze Modell
+# robuster und stabiler.
+#--------------------------------------------------------------
+
+# prompt:
+# template:
+# code:
+# |
+
+#****************************************
+# Lernen von refdates
+#****************************************
+prompt: aktueller Stichtag
+template:
+code: refdate=['CREF']
+|
+prompt: diesen Stichtag
+template:
+code: refdate=['CREF']
+|
+prompt: dieser Stichtag
+template:
+code: refdate=['CREF']
+|
+prompt: aktuellen Stichtag
+template:
+code: refdate=['CREF']
+|
+prompt: letzter Stichtag
+template:
+code: refdate=['CREF-1']
+|
+prompt: letzten Stichtag
+template:
+code: refdate=['CREF-1']
+|
+prompt: vorletzten Stichtag
+template:
+code: refdate=['CREF-2']
+|
+prompt: vorletzter Stichtag
+template:
+code: refdate=['CREF-2']
+|
+prompt: aktuelles Quartal
+template:
+code: refdate=['QREF']
+|
+prompt: letztes Quartal
+template:
+code: refdate=['QREF-1']
+|
+prompt: vorletztes Quartal
+template:
+code: refdate=['QREF-2']
+|
+prompt: letztes Halbjahr
+template:
+code: refdate=['HREF-1']
+|
+prompt: aktuelles Halbjahr
+template:
+code: refdate=['HREF']
+|
+prompt: aktuelles Jahr
+template:
+code: refdate=['YREF']
+|
+prompt: letztes Jahr
+template:
+code: refdate=['YREF-1']
+|
+prompt: vorletztes Jahr
+template:
+code: refdate=['YREF-2']
+|
+
+#****************************************
+# Lernen von refdates (welcher Datensatz)
+#****************************************
+prompt: letzten Datensatz
+template:
+code: range=LATEST
+|
+prompt: letzter Datensatz
+template:
+code: range=LATEST
+|
+prompt: aktuellen Datensatz
+template:
+code: range=LATEST
+|
+prompt: erster Datensatz
+template:
+code: range=FIRST
+|
+prompt: ersten Datensatz
+template:
+code: range=FIRST
+|
+prompt: alle Datensätze
+template:
+code: range=ALL
+|
+prompt: jeden Datensatz
+template:
+code: range=ALL
+|
+
+#****************************************
+# Lernen von math=<parameter>
+#****************************************
+prompt: aggregriere die Datensätze
+template:
+code: math=AGG
+|
+prompt: summiere die  Datensätze
+template:
+code: math=AGG
+|
+prompt: berrechne die Summe der Daten
+template:
+code: math=AGG
+|
+prompt: berechne alle Werte als Summe
+template:
+code: math=AGG
+|
+prompt: aggregiere alle Werte
+template:
+code: math=AGG
+|
+prompt: berechne die Summe über alle Werte
+template:
+code: math=AGG
+|
+prompt: lese den höchsten Wert des Messpunkts
+template:
+code: math=MAX
+|
+prompt: lese den höchsten Wert aller Messpunkte
+template:
+code: math=MAX
+|
+prompt: lade die höchsten Werte der Messpunkte
+template:
+code: math=MAX
+|
+prompt: lade den maximalen Wert der Messpunkte
+template:
+code: math=MAX
+|
+prompt: lese den niedrigsten Wert des Messpunkts
+template:
+code: math=MIN
+|
+prompt: lese den kleinsten Wert aller Messpunkte
+template:
+code: math=MIN
+|
+prompt: lade die kleinsten Werte der Messpunkte
+template:
+code: math=MIN
+|
+prompt: lade den minimalen Wert der Messpunkte
+template:
+code: math=MIN
+|
+prompt: berechne den Durchschnitt aller Werte des Messpunkts
+template:
+code: math=AVG
+|
+prompt: berechne den Durchschnitt der Werte der Messpunkte
+template:
+code: math=AVG
+|
+prompt: berechne den Durchschnitt der Werte aller Messpunkte
+template:
+code: math=AVG
+|
+prompt: berechne die Standardabweichung aller Werte pro Messpunkt
+template:
+code: math=STDEV
+|
+prompt: berechne die Standardabweichung über alle Werte pro Messpunkt
+template:
+code: math=STDEV
+|
+prompt: berechne die Standardabweichung über alle Werte für jeden Messpunkt
+template:
+code: math=STDEV
+|
+prompt: berechne die Standardabweichung über alle Werte für alle Messpunkte
+template:
+code: math=STDEV
+|
+#****************************************
+# Lernen von load data oder compute data
+#****************************************
+prompt: lade alle 
+template: 
+code: load data
+|
+prompt: laden aller Sätze  
+template: 
+code: load data
+|
+prompt: lade alle Daten von
+template: 
+code: load data
+|
+prompt: laden aller Sätze von 
+template: 
+code: load data
+|
+prompt: lade alle Daten von
+template: 
+code: load data
+|
+prompt: laden aller Sätze von 
+template: 
+code: load data
+|
+prompt: berechne die Werte
+template: 
+code: compute data
+|
+prompt: berechne den Wert des Messpunkts
+template: 
+code: compute data
+|
+prompt: berechne den Wert der Messpunkte
+template: 
+code: compute data
+|

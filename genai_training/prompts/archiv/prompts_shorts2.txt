@@ -1,0 +1,154 @@
+#-----------------------------------------------------------------------------------------------
+# PROMPT-File für SIMQL Beschreibungen
+# Der aufbau gliedert sich pro Prompt in drei Bereiche
+# prompt : hier steht der natürlichsprachige Text. Der Text kann mehrzeilig sein
+# template: hier kann ein SIMQL-Template angeben wird, das zu diesem Prompt den DSL-Code bereitstellt
+# code: hier kann eine einfache Codesequenz (SIMQL) stehen. Die Codezeile kann über mehrere Zeilen gehen
+#-----------------------------------------------------------------------------------------------
+
+#prompt:
+#template:
+#code:
+#|
+
+#
+# SHORT 2 - Inhalt
+# Beschreibung der section measurements und section variables
+#
+
+prompt: Referenziere folgende Messpunkte '{mp1}' und '{mp2}'.
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt:Nutze Messpunkte '{mp1}' und '{mp2}'.
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt:Nutze MPs '{mp1}' und '{mp2}'.
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Referenziere folgende MPs '{mp1}' und '{mp2}'.
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Benötigt werden diese Messpunkte '{mp1}', '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Lade diese Messpunkte '{mp1}' und '{mp2}'.
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Genutzt werden der Messpunkt '{mp1}' und der Messpunkt '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Genutzt werden der Messpunkt '{mp1}' und der Messpunkt '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Referenziere drei MPs '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Referenziere drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Nutze folgende Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Verwende folgende Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Drei Messpunkte sollen verwendet werden '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Daten werden drei Messpunkten benötigt '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt:Erstelle drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt:Verwende diese drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\t v{mp3} reference "{mp3}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Erstelle zwei Messpunkte '{mp1}', '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Erstelle diese beiden Messpunkte '{mp1}', '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Verwende diese beiden Messpunkte '{mp1}', '{mp2}'
+template:
+code: section measurements:\n\t v{mp1} reference "{mp1}"\n\t v{mp2} reference "{mp2}"\n\nsection variables:\n\t define vResult\n\t vTmp1\n
+|
+prompt: Referenziere folgende Messpunkte '{mp1}' und '{mp2}'.
+template:template_simql_001_shorts_2MP
+code: 
+prompt:Nutze Messpunkte '{mp1}' und '{mp2}'.
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt:Nutze MPs '{mp1}' und '{mp2}'.
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Referenziere folgende MPs '{mp1}' und '{mp2}'.
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Benötigt werden diese Messpunkte '{mp1}', '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Lade diese Messpunkte '{mp1}' und '{mp2}'.
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Genutzt werden der Messpunkt '{mp1}' und der Messpunkt '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Genutzt werden der Messpunkt '{mp1}' und der Messpunkt '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt:Erstelle drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Erstelle zwei Messpunkte '{mp1}', '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Erstelle diese beiden Messpunkte '{mp1}', '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Verwende diese beiden Messpunkte '{mp1}', '{mp2}'
+template:template_simql_001_shorts_2MP
+code: 
+|
+prompt: Drei Messpunkte sollen verwendet werden '{mp1}', '{mp2}' und '{mp3}'
+template:template_simql_002_shorts_3MP
+code: 
+|
+prompt: Daten werden drei Messpunkten benötigt '{mp1}', '{mp2}' und '{mp3}'
+template:template_simql_002_shorts_3MP
+code: 
+|
+prompt:Verwende diese drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'
+template:template_simql_002_shorts_3MP
+code: 
+|
+

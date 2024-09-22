@@ -1,0 +1,8 @@
+{
+   " MMP "      : [" MetaMesspunkt "],
+   " MP "       : [" MP ", " Messpunkt"],
+   " MPs "      : [" MPs ", " Messpunkte"],
+   " BK "       : [" BusinessKey ", " Name ", " Key "],
+   "Erstelle"   : ["Generiere", "Implementiere", "Programmiere", "Definiere", "Erzeuge", "referenziere"],
+   "Nutze"      : ["Verwende", "Benutze", ""]
+}

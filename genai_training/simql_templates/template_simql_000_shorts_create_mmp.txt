@@ -1,0 +1,4 @@
+mmp {mmp_alias}  
+    register "{mmp_name}"
+     
+end 

@@ -1,0 +1,33 @@
+#-----------------------------------------------------------------------------------------------
+# PROMPT-File für SIMQL Beschreibungen
+# Der aufbau gliedert sich pro Prompt in drei Bereiche
+# prompt : hier steht der natürlichsprachige Text. Der Text kann mehrzeilig sein
+# template: hier kann ein SIMQL-Template angeben wird, das zu diesem Prompt den DSL-Code bereitstellt
+# code: hier kann eine einfache Codesequenz (SIMQL) stehen. Die Codezeile kann über mehrere Zeilen gehen
+#-----------------------------------------------------------------------------------------------
+
+
+
+prompt:Registriere die Messpunktgruppe '{mmp_alias}'. Verwende die Messpunkte '{mp1}' und '{mp2}'. 
+Lade Daten Level {qlevel} aus der Umgebung '{environment}'. 
+Berechne die {math} der Variablen und speichere das Ergebnis.
+template:template_simql_simple
+code:
+|
+prompt:Implementiere einen Metamesspunkt {mmp_alias}. Dieser MMP soll zwei Messpunkte {mp1} und {mp2} im Eingang nutzen.
+Als Stichtag verwende {refdate1} und berechne anschließend {math}.Daten laden aus {environment}.
+template:template_simql_simple
+code:
+|
+prompt:Berechne die Aggregation der Werte von MP1 und MP2 für die Stichtage CREF und CREF-1 mit Qualität LAT.“
+template:
+code:compute data(refArgument=[vMP1,vMP2], math=AGG, refDate=['CREF', 'CREF-1'], quality=LAT)
+|
+prompt:Berechne die Aggregation der Werte von MP1 und MP2 für den aktuellen Stichtag und letzten Stichtag mit Qualität U4.“
+template:
+code:compute data(refArgument=[vMP1,vMP2], math=AGG, refDate=['CREF', 'CREF-1'], quality=U4)
+|
+prompt:Lade den letzten Datensatz von MP1 zum aktuellen Stichtag CREF.
+template:
+code:load data(refArgument=[vMP1], range=LATEST, refDate=['CREF'])
+|

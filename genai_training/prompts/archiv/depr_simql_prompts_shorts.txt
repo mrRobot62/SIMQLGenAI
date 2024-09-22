@@ -1,0 +1,12 @@
+prompt:Berechne die Aggregation der Werte von {mp1} und {mp2} für die Stichtage CREF und CREF-1 mit {syno_quality} {quality}.“
+template:
+ code: "compute data(refArgument=[v{mp1},v{mp2}], math=AGG, refDate=['CREF', 'CREF-1'], quality={quality})"
+|
+prompt:Berechne die Summe der Werte von {mp1} und {mp2} für den aktuellen Stichtag und letzten Stichtag mit {syno_quality} U4.“
+template:
+code:"compute data(refArgument=[v{mp1},v{mp2}], math=SUM, refDate=['CREF', 'CREF-1'], quality=U4)"
+|
+prompt:Lade den letzten Datensatz von {mp1} zum aktuellen Stichtag.
+template:
+code:load data(refArgument=[v{mp1}], range=LATEST, refDate=['CREF'])
+|

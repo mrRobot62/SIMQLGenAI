@@ -1,0 +1,105 @@
+# -----------------------------------------------------------------
+# Training-Prompts um eine einfache SIMQL-Strukturen zu trainieren
+#
+#
+# -----------------------------------------------------------------
+#
+#prompt: prompt-Text
+#template: Angabe eines Templates 
+#code: alternative zum Template, Angabe von SIMQL-Code
+#
+
+prompt:Registriere den Metamesspunkt '{mmp_alias}' und dem Key {mmp_name}. Verwende die Messpunkte '{mp1}' und '{mp2}'. 
+Lade Daten Level {qlevel} aus der Umgebung '{environment}'. 
+Berechne die {math} der Variablen und speichere das Ergebnis.
+template:template_simql_100_simple
+code:
+|
+prompt:Erstelle einen Metamesspunkt '{mmp_alias}' rund referenziere auf '{mmp_name}'. Dieser MMP verwendet zwei Messpunkte '{mp1}' und '{mp2}'.
+Die Daten sollen aus der {environment} geladen werden. Laden jeweils den {data_range} Datensatz und nutze die {math} Funktion.
+Speichere das Ergebnis
+template:template_simql_100_simple
+code:
+|
+prompt:Neuer MMP '{mmp_alias}', zwei Messpunkte {mp1}, {mp2}, range={data_range}, refdate={refdate1}, math
+template:template_simql_100_simple
+code:
+|
+prompt:Generiere einen neuen MMMP '{mmp_alias}' mit zwei MPs '{mp1}' und '{mp2}'. Lade die Daten zum Stichtag {refdate1} und nutze die {math} Funktion. 
+Persistiere das Ergbnis.
+template:template_simql_100_simple
+code:
+|
+prompt:Implementiere einen Metamesspunkt '{mmp_alias}'. Dieser MMP soll zwei Messpunkte '{mp1}' und '{mp2}' im Eingang nutzen.
+Als Stichtag verwende {refdate1} und berechne anschließend {math}.Daten laden aus {environment}.
+template:template_simql_100_simple
+code:
+|
+prompt:Generiere einen Metamesspunkt '{mmp_alias}'. Dieser MMP arbeitet mit zwei Messpunkten '{mp1}' und '{mp2}'. Daten sollen zum Stichtag {refdate1} geladen werden.
+Nutze das Environment {environment}. Lade jeweils den {data_range} Datensatz und nutze die {math} Funktion.
+Speichere das Ergebnis
+template:template_simql_100_simple
+code:
+|
+prompt:Erzeuge einen MMP '{mmp_alias}'. Speichere das MAX ergebnis des Messpunkts {mp1}
+template:template_simql_300_max_short
+code:
+|
+prompt:Erstelle '{mmp_alias}', {mp1}, ALL, MAX
+template:template_simql_300_max_short
+code:
+|
+prompt:Generiere '{mmp_alias}' mit {mp1}, berechne MAX
+template:template_simql_300_max_short
+code:
+|
+prompt:Neuer '{mmp_alias}'. Lade {mp1} und laden den max wert
+template:template_simql_300_max_short
+code:
+|
+prompt:Erzeuge einen MMP '{mmp_alias}'. Speichere das MAX (math=MAX) Ergebnis des Messpunkts {mp1}
+template:template_simql_301_max_long
+code:
+|
+prompt:Erstelle '{mmp_alias}', {mp1}, ALL, MAX. math=MAX
+template:template_simql_301_max_long
+code:
+|
+prompt:Generiere'{mmp_alias}' mit {mp1}, berechne MAX
+template:template_simql_301_max_long
+code:
+|
+prompt:Neuer '{mmp_alias}'. Lade {mp1} und laden den max wert
+template:template_simql_301_max_long
+code:
+|
+prompt:Erstelle '{mmp_alias}' mit {mp1} {mp2} und subtrahiere jeweils den letzten Wert. math=MINUS
+template:template_simql_101_minus
+code:
+|
+prompt:Generiere mir '{mmp_alias}'. Verwende '{mp1}' und '{mp2}' und subtrahiere jeweils den letzten Wert. math=MINUS
+template:template_simql_101_minus
+code:
+|
+prompt:Erzeuge '{mmp_alias}'.Referenziere auf '{mp1}' und '{mp2}'. Führe eine Subtraktion durch. math=MINUS
+template:template_simql_101_minus
+code:
+|
+prompt:Bastel mir mal einen MMP mit dem Namen {mmp_alias}, dieser muss mit diesen MPs arbeiten '{mp1}' und '{mp2}'. 
+Aggregiere die Ergebnisse beider Messpunkte und speichere. Verwende bei beiden Messpunkten immer den ersten Datensatz der gefunden wird
+zum aktuellen Stichtag
+template:template_simql_100_simple
+code:
+|
+prompt:Erstelle '{mmp_alias}', registriert mit '{mmp_alias}' mit zwei Messpunkten '{mp1}' und '{mp2}'. Nutze den aktuellen Stichtag und führe eine Aggregation durch
+template:template_simql_100_simple
+code:
+|
+prompt:Erstelle '{mmp_alias}' mit zwei Messpunkten '{mp1}' und '{mp2}'. Nutze den letzten Stichtag und führe eine Subtraktion durch
+template:template_simql_100_simple
+code:
+|
+prompt:Genriere '{mmp_alias}' mit '{mp1}' und '{mp2}'. Nutze den aktuellen Stichtag und summiere die Daten
+template:template_simql_100_simple
+code:
+|

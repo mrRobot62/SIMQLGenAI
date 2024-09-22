@@ -1,0 +1,57 @@
+mmp SIMQL_DEMONSTRATION
+
+    register "MMP_SIMQL_DEMONSTRATION"
+
+    section measurements:
+        mp reference "MP_SIMQL_DEMONSTRATION1"
+        # 'default': 10 #this is example data for what values might be returned
+        # a: [10,10], b: 15, c: 20 #this is example data for what values might be returned
+ 
+    section variables:
+        define var,result
+
+    section logic:
+
+        #all math
+        var = COMPUTE DATA(ref=[mp], math=AGG) #aggregates all values, per key
+        var = COMPUTE DATA(ref=[mp], math=SUM) #alias for AGG
+        var = COMPUTE DATA(ref=[mp], math=PLUS) #alias for AGG
+
+        var = COMPUTE DATA(ref=[mp], math=MINUS) #subtracts all values after the first one from the first one, per key
+        var = COMPUTE DATA(ref=[mp], math=MULT) #calculates the product of all values, per key
+        var = COMPUTE DATA(ref=[mp], math=DIV) #divides the first value by the all following, per key
+        var = COMPUTE DATA(ref=[mp], math=MIN) #determines the maximum value of each key
+        var = COMPUTE DATA(ref=[mp], math=MAX) #determines the maximum value of each key
+
+        var = COMPUTE DATA(ref=[mp], math=STDEV) #calculates the standard deviation per key
+        var = COMPUTE DATA(ref=[mp], math=VAR) #calculates the variance per key
+        var = COMPUTE DATA(ref=[mp], math=QUANTILE(1)) #calculates the x quantile per key, 1..4 is possible, here 1 is used
+        var = COMPUTE DATA(ref=[mp], math=MEDIAN) #calculates the median per key
+        var = COMPUTE DATA(ref=[mp], math=ZSCORE) #calculates the zscore per key
+        var = COMPUTE DATA(ref=[mp], math=IQR(1)) #returns the IQR (interquartile range) for each key, the '1' passed to the function is the threshold
+        var = COMPUTE DATA(ref=[mp], math=MEAN) #returns the mean of the values per key
+        var = COMPUTE DATA(ref=[mp], math=COUNT) #returns the number of values per key
+
+        var = COMPUTE DATA(ref=[mp], refdates=["CREF","CREF-1"], qualityLevel="U4", environment="TUC", range=LATEST, math=AGG) #this is all arguments for the "compute data" statement, any execept "ref" and "math" can be omitted and will be fit with default arguments.
+
+        #all vmath math operators product a single scalar output that is stored under the "default" key
+        var = COMPUTE DATA(ref=[mp], math=VAGG) #calculates the total sum over all values of all keys
+        var = COMPUTE DATA(ref=[mp], math=VSUM) #alias for VAGG
+        var = COMPUTE DATA(ref=[mp], math=VMULT) #calculates the total product over all values of all keys
+        var = COMPUTE DATA(ref=[mp], math=VMIN) #finds the overall minimum out of all values of all keys
+        var = COMPUTE DATA(ref=[mp], math=VMAX)  #finds the overall maximum out of all values of all keys
+
+        var = COMPUTE DATA(ref=[mp], math=VCOUNT)
+
+        result = COMPUTE DATA(variables=[var,var], math=PLUS) #test variables version
+
+        result = SLA(KT, 1, "14:00", "target2holidays", 5) #SLA is a function to calculate the time when a task is expected to finish, the first parameter is either 'AT' or 'KT', for AT its working days and KT its calendar days. For AT holidays are considered. The next parameter means +1 day. the next one is the time of day in a 24h format. following this is a calendar key, used for when AT is defined to determine holidays. The last parameters is additional hours that are finally added on top.
+
+        result = LOAD DATA(ref=[mp]) #a simple usage of the load data statement to load the values for the mp called 'mp'. all parameters are omitted and thus the default ones are used instead
+
+
+        result = JOIN(variables=[result,result]) #result: #a: [10,10], b: [15,15], c: [20,20], consequence with example data from above in the script
+        result = COMPUTE DATA(variables=[result], math=VAGG)# #default: 90 #result with example data
+    section result:
+        save result
+end #SIMQL_DEMONSTRATION

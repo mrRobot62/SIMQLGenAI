@@ -1,0 +1,163 @@
+{
+    "mmp" : [
+        {"build" : ["Erstelle", "Generiere", "Implementiere","Baue", "Kreiere", "Verwende", "Entwerfe", "Bastel"]},
+        {"reference": ["referenziere mit", "nutze", "benutze", "nutze diesen", "verwende"]},
+        {"prompts" : [
+            "{build} einen MetaMesspunkt mit folgendem Namen '{mmp_name}'.",
+            "{build} MetaMesspunkt '{mmp_name}'.",
+            "{build} mir einen MetaMesspunkt mit {reference} '{mmp_name}'.",
+            "{build} diesen neuen Metamesspunkt {reference} '{mmp_name}'.",
+            "{build} Businesskey '{mmp_name}'",
+            "{build} und {reference} Metamesspunkt '{mmp_name}'.",
+            "{reference} '{mmp_name}' und {build} einen neuen Metamesspunkt",
+            "Bitte {build} einen Metamesspunkt und {reference} folgenden Registrierungsnamen '{mmp_name}'",
+            "Benötigt wird ein metamesspunkt. {build} und {reference} '{mmp_name}'"
+        ]},
+        {"code":"mmp {mmp_alias}\n\tregister \"{mmp_name}\"\n\nsection result:\n\tsave vResult\n\nend\n;"},
+        {"template":""}
+    ],
+    "mp2": [
+        {"build" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere"]},
+        {"reference": ["", "diese", "folgende", "folgende zwei"]},
+        {"prompts" : [
+            "{build} {reference} Messpunkte '{mp1}' und '{mp2}'.",
+            "{build} {reference} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{build} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{build} zwei Messpunkte '{mp1}' und '{mp2}'.",
+            "{build} {reference} Messpunkte '{mp1}', '{mp2}'.",
+            "{build} Messpunkte '{mp1}', '{mp2}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2\n\n"},
+        {"template":""}
+    ],
+    "mp3": [
+        {"build" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
+        {"reference": ["", "diese", "folgende", "folgende drei"]},
+        {"prompts" : [
+            "{build} {reference} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{build} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{build} {reference} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{build} {reference} drei Messpunkte '{mp1}' '{mp2}' '{mp3}'.",
+            "{build} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{build} drei Messpunkte '{mp1}', '{mp2}', '{mp3}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3\n\n"},
+        {"template":""}
+    ],
+    "mp4": [
+        {"build" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
+        {"reference": ["", "diese", "folgende", "folgende vier"]},
+        {"prompts" : [
+            "{build} {reference} Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{build} Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{build} {reference} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{build} {reference} vier Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{build} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{build} vier Messpunkte '{mp1}', '{mp2}', '{mp3}', '{mp4}'"
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\tvMP4 reference '{mp4}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3, vTmp4\n\n"},
+        {"template":""}
+    ],
+    "ld2_cref" : [
+        {"build" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu"]},
+        {"reference": ["zum", "nutze", "mit", "per"]},
+        {"refdate": ["", "Stichtag", "aktuellen Stichtag", "Stichtag '{refdate}'"]},
+        {"links" : []},
+        {"additional1" : ["der Messpunkt","beider Messpunkte","aller Messpunkte"]},
+        {"additional2" : ["", "'{mp1}' und '{mp2}'", "'{mp1}', '{mp2}'"]},
+        {"additional3" : []},
+        {"prompts" : [
+            "{build} {reference} {refdate}.",
+            "{build} {additional1} {additional} {reference} {refdate}.",
+            "{build} {additional1} {reference} {refdate}.",
+            "{build} {reference} {refdate} {additional1} {additional2}.",
+            "{reference} {refdate} {build}.",
+            "{reference} {refdate} {build} {additional1}.",
+            "{reference} {refdate} {build} {additional1} {additional2}."
+
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=['{refdate}'])\n\tvTmp2 = load data(ref=[vMP2], refdates=['{refdate}'])\n\n"},
+        {"template":""}
+
+    ],
+    "ld2_cref_latest" : [
+        {"build" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu"]},
+        {"reference": ["zum", "nutze", "mit", "per"]},
+        {"refdate": ["", "Stichtag", "aktuellen Stichtag", "Stichtag '{refdate}'"]},
+        {"links" : []},
+        {"additional1" : ["der Messpunkt","beider Messpunkte","aller Messpunkte"]},
+        {"additional2" : ["", "'{mp1}' und '{mp2}'", "'{mp1}', '{mp2}'"]},
+        {"additional3" : ["Lade den letzten Datensatz","nutze den aktuellsten Datensatz"]},
+        {"prompts" : [
+            "{build} {reference} {refdate}.",
+            "{build} {additional1} {additional} {reference} {refdate}.",
+            "{build} {additional1} {reference} {refdate}.",
+            "{build} {reference} {refdate} {additional1} {additional2}.",
+            "{reference} {refdate} {build}.",
+            "{reference} {refdate} {build} {additional1}.",
+            "{reference} {refdate} {build} {additional1} {additional2}."
+
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=['{refdate}'],range=LATEST)\n\tvTmp2 = load data(ref=[vMP2], refdates=['{refdate}'], range=LATEST)\n\n"},
+        {"template":""}
+
+    ],
+    "ld3_cref" : [
+        {"build" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu", "greife auf alle Daten zu"]},
+        {"reference": ["zum", "nutze", "mit", "per"]},
+        {"refdate": ["Stichtag", "aktuellen Stichtag", "Stichtag '{refdate}'", "diesem Stichtag", "jetzigen Stichtag"]},
+        {"links" : []},
+        {"additional1" : ["der Messpunkt","beider Messpunkte","aller Messpunkte"]},
+        {"additional2" : ["", "'{mp1}' und '{mp2}' und '{mp3}'", "'{mp1}', '{mp2}' und '{mp3}", "'{mp1}','{mp2}','{mp3}'"]},
+        {"additional3" : [""]},
+        {"prompts" : [
+            "{build} {reference} {refdate}.",
+            "{build} {additional1} {additional} {reference} {refdate}.",
+            "{build} {additional1} {reference} {refdate}.",
+            "{build} {reference} {refdate} {additional1} {additional2}.",
+            "{reference} {refdate} {build}.",
+            "{reference} {refdate} {build} {additional1}.",
+            "{reference} {refdate} {build} {additional1} {additional2}."
+
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=['{refdate}'])\n\tvTmp2 = load data(ref=[vMP2], refdates=['{refdate}'])\n\tvTmp3 = load data(ref=[vMP3], refdates=['{refdate}'])\n\n"},
+        {"template":""}
+
+    ],
+    "ld4_cref" : [
+        {"build" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu", "greife auf alle Daten zu"]},
+        {"reference": ["zum", "nutze", "mit", "per"]},
+        {"refdate": ["", "Stichtag", "aktuellen Stichtag", "Stichtag '{refdate}'"]},
+        {"links" : []},
+        {"additional1" : ["der Messpunkt","beider Messpunkte","aller Messpunkte"]},
+        {"additional2" : ["", "'{mp1}' und '{mp2}' und '{mp3}' und '{mp4}'", "'{mp1}', '{mp2}', '{mp3}' und '{mp4}", "'{mp1}','{mp2}','{mp3}','{mp4}'"]},
+        {"additional3" : []},
+        {"prompts" : [
+            "{build} {reference} {refdate}.",
+            "{build} {additional1} {additional} {reference} {refdate}.",
+            "{build} {additional1} {reference} {refdate}.",
+            "{build}{reference} {refdate} {additional1} {additional2}.",
+            "{reference} {refdate} {build}.",
+            "{reference} {refdate} {build} {additional1}.",
+            "{reference} {refdate} {build} {additional1} {additional2}."
+
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=['{refdate}'])\n\tvTmp2 = load data(ref=[vMP2], refdates=['{refdate}'])\n\tvTmp3 = load data(ref=[vMP3], refdates=['{refdate}'])\n\tvTmp4 = load data(ref=[vMP4], refdates=['{refdate}'])\n\n"},
+        {"template":""}
+
+    ],
+    "simple_mp2_cref_latest" : [
+        {"build" : []},
+        {"reference": []},
+        {"links" : ["mmp", "mp2", "ld2_cref"]},
+        {"additional1" : []},
+        {"additional2" : []},
+        {"additional3" : []},
+        {"prompts" : [
+            "{0}\n{1}\n{2}",
+            "{0}\n{2}\n{1}"
+        ]},
+        {"code":""},
+        {"template":"template_simql_100_simple"}       
+    ]
+}

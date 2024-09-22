@@ -1,0 +1,22 @@
+	register "MMP4711"
+
+	section measurement:
+		mp1 = reference "MP1"
+		mp2 = reference "MP2"
+		pass
+
+	section variables:
+		vResult
+		vMP1
+		vMP2
+		pass
+
+	section logic
+		vResult=compute data(refArgument=[mp1, mp2], refdates=[CREF], range=LATEST, math=minus)
+		pass
+
+	section result:
+		save vResult
+
+End
+;

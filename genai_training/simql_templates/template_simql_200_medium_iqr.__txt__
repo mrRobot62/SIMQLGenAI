@@ -1,0 +1,17 @@
+mmp {mmp_alias}
+    register "MMP_IQR"
+     
+    section measurements:
+        vMP1 reference "{mp1}"
+ 
+    section variables:
+        define result
+         
+    section logic:
+
+        result = COMPUTE DATA(ref=[vMP1], refdates={refdate_iqr}, qualityLevel="U4", range=LATEST, math=IQR(1)) #calculate interquartile range with a threshold of 1
+    
+    section result:
+        save result #save/return the result
+     
+end #IQR

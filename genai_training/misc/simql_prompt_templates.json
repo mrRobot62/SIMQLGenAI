@@ -1,0 +1,161 @@
+{
+    "mmp" : [
+        {"intro1" : ["Erstelle", "Generiere", "Implementiere","Baue", "Kreiere", "Verwende", "Entwerfe", "Bastel"]},
+        {"reference": ["referenziere mit", "nutze", "benutze", "nutze diesen", "verwende"]},
+        {"prompts" : [
+            "{intro1} einen MetaMesspunkt mit folgendem Namen '{mmp_name}'.",
+            "{intro1} MetaMesspunkt '{mmp_name}'.",
+            "{intro1} mir einen MetaMesspunkt mit {reference} '{mmp_name}'.",
+            "{intro1} diesen neuen Metamesspunkt {reference} '{mmp_name}'.",
+            "{intro1} Businesskey '{mmp_name}'",
+            "{intro1} und {reference} Metamesspunkt '{mmp_name}'.",
+            "{reference} '{mmp_name}' und {intro1} einen neuen Metamesspunkt",
+            "Bitte {intro1} einen Metamesspunkt und {reference} folgenden Registrierungsnamen '{mmp_name}'",
+            "Benötigt wird ein metamesspunkt. {intro1} und {reference} '{mmp_name}'"
+        ]},
+        {"code":"mmp {mmp_alias}\n\tregister \"{mmp_name}\"\n\nsection result:\n\tsave vResult\n\nend\n;"},
+        {"template":""}
+    ],
+    "mp2": [
+        {"intro1" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere"]},
+        {"reference": ["", "diese", "folgende", "folgende zwei"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} {reference} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} zwei Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}'.",
+            "{intro1} Messpunkte '{mp1}', '{mp2}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2\n\n"},
+        {"template":""}
+    ],
+    "mp3": [
+        {"intro1" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
+        {"reference": ["", "diese", "folgende", "folgende drei"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} {reference} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} {reference} drei Messpunkte '{mp1}' '{mp2}' '{mp3}'.",
+            "{intro1} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} drei Messpunkte '{mp1}', '{mp2}', '{mp3}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3\n\n"},
+        {"template":""}
+    ],
+    "mp4": [
+        {"intro1" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
+        {"reference": ["", "diese", "folgende", "folgende vier"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{intro1} {reference} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} {reference} vier Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}', '{mp4}'"
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\tvMP4 reference '{mp4}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3, vTmp4\n\n"},
+        {"template":""}
+    ],
+    "synonyms" :
+        {
+            "synonym_daten": ["Daten", "Datensätze", "Sätze", "Messerte", "Fakten", "Werte", "Informationen", "Ergebnisse"],
+            "synonym_wert" : ["Messert", "Satz", "Datensatz", "Wert"]
+        }
+    ,
+    "useable_refdates": [ 
+        { "prompts": ["Stichtag", "aktuellen Stichtag", "letzter Monat", "letztem Monat"], "code":"'CREF'"},
+        { "prompts": ["vorheriger Stichtag", "vorherigen Stichtag", "letzter Stichtag", "letzten Stichtag"], "code":"'CREF-1'"},
+        { "prompts": ["vor zwei Monaten", "vorletzter Stichtag", "vorletzten Stichtag"], "code":"'CREF-2'"},
+        { "prompts": ["der letzten zwei Stichtage", "aktuellen und letzter Stichtag", "der letzten beiden Stichtage"], "code":"'CREF','CREF-1'"},
+        { "prompts": ["der letzten drei Stichtage"], "code":"'CREF','CREF-1', 'CREF-2'"},
+        { "prompts": ["Quartal", "aktuelles Quartal", "Vierteljahr"], "code":"'QREF'"},
+        { "prompts": ["vorheriges Quartal", "letztes Quartal"], "code":"'QREF-1'"},
+        { "prompts": ["der letzten zwei Quartale", "der letzten beiden Quartale"], "code":"'QREF','QREF-1'"},
+        { "prompts": ["Halbjahr", "aktuelles Halbjahr", "dieses Halbjahr"], "code":"'HREF'"},
+        { "prompts": ["vorheriges Halbjahr", "letztes Halbjahr"], "code":"'HREF-1'"},
+        { "prompts": ["der letzten zwei Halbjahre", "der letzten beiden Halbjahre"], "code":"'HREF','HREF-1'"},
+        { "prompts": ["letztes Jahr"], "code":"'YREF'"},
+        { "prompts": ["der letzten zwei Jahren"], "code":"'YREF','YREF-1"},
+        { "prompts": ["der letzten drei Jahren"], "code":"'YREF','YREF-1','YREF-2'"}
+    ],
+    "useable_math" : [
+        {"prompts":["Summiere alle {synonym_daten}", "Aggregiere die {synonym_daten}", "Addiere die {synonym_daten}"], "code":"AGG"},
+        {"prompts":["Berechne die Differenz", "Ziehe die Werte voneinander ab"], "code":"DIFF"},
+        {"prompts":["Berechne den kleinsten {synonym_wert}"], "code":"MIN"},
+        {"prompts":["Berechne den größten {synonym_wert}"], "code":"MAX"},
+        {"prompts":["Berechne die Standardabweichung der {synonym_data}"], "code":"STDEV"},
+        {"prompts":["Bilde das Produkt aller {synonym_wert} Werten","Multipliziere die {synonym_daten}","Führe eine Multiplikation der {synonym_daten} durch"], "code":"MULT"}
+    ],
+    "useable_ranges" : [
+        {"prompts":["lade den letzten Datensatz", "lade die letzten Datensätze", "nutze den neusten Datensatz", "nutze die neusten Datensätze", "Greife auf den letzten Datensatz zu", "Verwende den aktuellesten Datensatz", "Verwende die aktuellsten Datensätze"], "code":"LATEST"},
+        {"prompts":["lade den ersten Datensatz", "lade die frühesten Datensätze", "nutze den ersten Datensatz", "nutze die ersten Datensätze", "Greife auf den ersten Datensatz zu", "Verwende den ältesten Datensatz", "Verwende die ältesten Datensätze"], "code":"FIRST"},
+        {"prompts":["lade alle Datensätze", "lade jeden Datensatz", "nutze alle Datensätze", "nutze jeden Datensatz", "Greife auf alle Datensätze zu", "Verwende jeden Datensatz", "Verwende alle Datensätze"], "code":"ALL"}
+    ],
+    "loaddata_2mp" : [
+        {"intro1" : ["Lade Daten", "verwende die Daten", "Nutze die Daten", "Importiere die Daten", "Hole Daten", "Extrahiere Daten", "Greife auf Daten zu", "Prüfe die Daten"]},
+        {"reference": ["", "zum", "nutze", "per"]},
+        {"mpref1" : ["der Messpunkte","beider Messpunkte","aller Messpunkte"]},
+        {"mpref2" : ["", "'{mp1}' und '{mp2}'", "'{mp1}', '{mp2}'"]},
+        {"prompts" : [
+            "{intro1} {mpref1} {mpref2} {reference} {refdate}.{range}.",
+            "{intro1} {mpref1} {reference} {refdate}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{reference} {intro1} {refdate} {mpref1}.{range}.",
+            "{reference} {intro1} {refdate} {mpref2}.{range}.",
+            "{range}. {intro1} {reference} {refdate} {mpref1}.",
+            "{range}. {intro1} {reference} {refdate}  {mpref2}."
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=[{refdate}],range={range})\n\tvTmp2 = load data(ref=[vMP2], refdates=[{refdate}],range={range})\n\n"},
+        {"template":""}
+
+    ],
+    "loaddata_3mp" : [
+        {"intro1" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu", "greife auf alle Daten zu"]},
+        {"reference": ["", "zum", "nutze", "per"]},
+        {"mpref1" : ["der Messpunkte","der drei Messpunkte","aller Messpunkte"]},
+        {"mpref2" : ["", "'{mp1}' und '{mp2}' und '{mp3}'", "'{mp1}', '{mp2}' und '{mp3}", "'{mp1}','{mp2}','{mp3}'"]},
+        {"prompts" : [
+            "{intro1} {mpref1} {mpref2} {reference} {refdate}.{range}.",
+            "{intro1} {mpref1} {reference} {refdate}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{reference} {intro1} {refdate} {mpref1}.{range}.",
+            "{reference} {intro1} {refdate} {mpref2}.{range}.",
+            "{range}. {intro1} {reference} {refdate} {mpref1}.",
+            "{range}. {intro1} {reference} {refdate}  {mpref2}."
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=[{refdate}],range={range})\n\tvTmp2 = load data(ref=[vMP2], refdates=[{refdate}],range={range})\n\tvTmp3 = load data(ref=[vMP3], refdates=[{refdate}],range={range})\n\n"},
+        {"template":""}
+
+    ],
+    "loaddata_4mp" : [
+        {"intro1" : ["Lade Daten", "verwende die Daten", "nutze die Daten", "Importiere die Daten", "Hole Daten", "extrahiere Daten", "greife auf Daten zu", "greife auf alle Daten zu"]},
+        {"reference": ["", "zum", "nutze", "per"]},
+        {"refdate": ["Stichtag", "aktuellen Stichtag", "Stichtag '{refdate}'"]},
+        {"mpref1" : ["der Messpunkte","aller vier Messpunkte","aller Messpunkte"]},
+        {"mpref2" : ["", "'{mp1}' und '{mp2}' und '{mp3}' und '{mp4}'", "'{mp1}', '{mp2}', '{mp3}' und '{mp4}", "'{mp1}','{mp2}','{mp3}','{mp4}'"]},
+        {"prompts" : [
+            "{intro1} {mpref1} {mpref2} {reference} {refdate}.{range}.",
+            "{intro1} {mpref1} {reference} {refdate}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{intro1} {reference} {refdate} {mpref2}.{range}.",
+            "{reference} {intro1} {refdate} {mpref1}.{range}.",
+            "{reference} {intro1} {refdate} {mpref2}.{range}.",
+            "{range}. {intro1} {reference} {refdate} {mpref1}.",
+            "{range}. {intro1} {reference} {refdate}  {mpref2}."
+        ]},
+        {"code":"\tsection logic:\n\tvTmp1 = load data(ref=[vMP1], refdates=[{refdate}],range={range})\n\tvTmp2 = load data(ref=[vMP2], refdates=[{refdate}],range={range})\n\tvTmp3 = load data(ref=[vMP3], refdates=[{refdate}],range={range})\n\tvTmp4 = load data(ref=[vMP4], refdates=[{refdate}],range={range})\n\n"},
+        {"template":""}
+
+    ],
+    "simple_mp2" : [
+        {"links" : [
+            ["mmp", "mp2", "loaddata_2mp"]
+        ]},
+        {"prompts" : []},
+        {"template":"template_simql_100_simple"}       
+    ]
+}

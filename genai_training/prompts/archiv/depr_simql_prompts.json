@@ -1,0 +1,22 @@
+[
+    {
+        "text": "Registriere die Messpunktgruppe '{group}'. Verwende die Messpunkte '{mp1}' und '{mp2}'. Lade Daten mit den Qualitätsstufen '{quality1}' und '{quality2}' aus den Umgebungen '{env1}' und '{env2}'. Berechne die {math} der Variablen und speichere das Ergebnis als '{result}'.",
+        "template": "template_simql_simple"
+    },
+    {
+        "text": "Erstelle einen Metamesspunkt {group}. Dieser MMP verwendet zwei Messpunkte {mp1} und {mp2}. Die Daten sollen aus der {env1} geladen werden. Laden jeweils den {idxRange} Datensatz und nutze die {math} Funktion. Speichere das Ergebnis als {result}",
+        "template": "template_simql_simple"
+    },
+    {
+        "text": "Neuer MMP {group}, zwei Messpunkte {mp1}, {mp2}, range={idxRange}, save={result}, refdate={refdate}, math={math}",
+        "template": "template_simql_simple"
+    },
+    {
+        "text": "Generiere einen neuen MMMP {group} mit zwei MPs {mp1} und {mp2}. Lade die Daten zum Stichtag {refdate} und nutze die {math} Funktion. Das Ergebnis soll in {result} gespeichert werden.",
+        "template": "template_simql_simple"
+    },
+    {
+        "text": "Generiere einen neuen MMMP {group} mit zwei MPs {mp1} und {mp2}. Lade die Daten zum {mapRefDate} Stichtag und nutze die {math} Funktion. Das Ergebnis soll in {result} gespeichert werden.",
+        "template": "template_simql_simple"
+    }
+]

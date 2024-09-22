@@ -1,0 +1,21 @@
+mmp MMP1 
+    register "MMP_Template"
+     
+    section measurements: 
+        vMP1 reference "{mp1}" 
+        vMP2 reference "{mp2}" 
+        vMP3 reference "{mp3}" 
+ 
+    section variables: 
+        define vTmp1
+        define vTmp2
+        define vTmp3
+        define vResult 
+         
+    section logic:
+        pass
+
+    section result:
+        save  vResult
+     
+end 

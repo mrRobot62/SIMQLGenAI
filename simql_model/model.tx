@@ -1,0 +1,156 @@
+import constants
+
+DSLModel:
+  mmpModels+=MMPModel
+;
+
+MMPModel:
+  mmpDefinition=MMPDefinition
+  registerStatement=RegisterStatement
+  sectionMeasurements=SectionMeasurements
+  sectionVariables=SectionVariables
+  sectionLogic=SectionLogic
+  sectionResult=SectionResult
+  EndStatement
+;
+
+  EndStatement:
+  END
+  ;
+
+  Comment:
+  content=CommentRegex
+  ;
+
+  CommentRegex:
+    /#.*$/
+  ;
+
+  RegisterStatement:
+    REGISTER name=STRING
+  ;
+
+  MMPDefinition:
+    MMP name=ID
+  ;
+
+  SectionMeasurements:
+    SECTION MEASUREMENTS ':'
+    mpDefinitions*=MPDefinition
+    (passStatement=PassStatement)?
+  ;
+
+  SectionVariables:
+    SECTION VARIABLES ':'
+    variableDefinitions*=VariableDefinition
+    variable2DDefinitions*=Variable2DDefinition
+    (passStatement=PassStatement)?
+  ;
+
+  VariableDefinition:
+    DEFINE ids+=ID[',']
+  ;
+
+  Variable2DDefinition:
+    DEFINE2D ids+=ID[',']
+  ;
+
+
+  SectionLogic:
+  SECTION LOGIC ':'
+    commands*=LogicCommand
+    (passStatement=PassStatement)?
+  ;
+
+  LogicCommand:
+  ComputeStatement | ABSStatement | JoinStatement | SLAStatement | LoadDataStatement | VariableAssignment
+  ;
+
+  ABSStatement:
+  var=ID '=' ABS '(' arg=ID ')'
+  ;
+
+  VariableAssignment:
+  var=ID '=' (value=NUMBER | todayCall=TodayCall | otherVar=ID)
+  ;
+
+  TodayCall:
+  TODAY '(' param=INT ')'
+  ;
+
+  SLAStatement:
+  var=ID '=' SLA '(' day_type=DAY_TYPE ',' day_number=INT ',' time=STRING ',' calendar_key=STRING ',' additional_hours=INT ')'
+  ;
+
+  LoadDataStatement:
+  var=ID '=' LOAD DATA '(' refArgument=RefArgument (',' REFDATES '=' refdates=RefList)? (',' QUALITY_LEVEL '=' qualityLevel=STRING)? (',' ENVIRONMENT '=' environment=STRING)? (',' RANGE '=' range=RangeConstant)? ')'
+  ;
+
+  DAY_TYPE: AT | KT;
+
+  JoinStatement:
+  var=ID '=' JOIN '(' variablesArgument=VariablesArgument ')'
+  ;
+
+  SectionResult:
+  SECTION RESULT ':'
+    saveStatement=SaveStatement
+    (passStatement=PassStatement)?
+  ;
+
+  SaveStatement:
+    SAVE id=ID
+  ;
+
+  PassStatement:
+    PASS
+  ;
+
+  MPDefinition:
+    id=ID REFERENCE value=STRING
+  ;
+
+  ComputeStatement:
+    MPComputeStatement | VarComputeStatement
+  ;
+
+  MPComputeStatement:
+    var=ID '=' COMPUTE DATA '(' refArgument=RefArgument (',' REFDATES '=' refdates=RefList)? (',' QUALITY_LEVEL '=' qualityLevel=STRING)? (',' ENVIRONMENT '=' environment=STRING)? (',' RANGE '=' range=RangeConstant)? ',' MATH '=' (math=MathOperator | vmath=VMathOperator) (',' RETURN '=' result=TwoTuple)? ')'
+  ;
+
+
+  VarComputeStatement:
+    var=ID '=' COMPUTE DATA '(' variablesArgument=VariablesArgument ',' MATH '=' (math=MathOperator | vmath=VMathOperator) (',' RETURN '=' result=TwoTuple)? ')'
+  ;
+
+  RefArgument:
+  REF '=' refs=MPList
+  ;
+
+  TwoTuple:
+  '[' false=NUMBER ',' true=NUMBER ']'
+  ;
+
+  VariablesArgument:
+  VARIABLES '=' variables=VarList
+  ;
+
+  MPList: 
+  '[' ids+=ID[','] ']'
+  ;
+
+  VarList: 
+  '[' ids+=ID[','] ']'
+  ;
+
+  RefList:
+  '[' refs+=STRING[','] ']'
+  ;
+  
+  MathOperator: AGG | SUM | PLUS | MINUS | MULT | DIV | MIN | MAX | STDEV | VAR | QUANTILEMATH | MEDIAN | IQRMATH | MEAN | COUNT | ZSCORE;
+  VMathOperator: VAGG | VSUM | VMULT | VMIN | VMAX | VCOUNT;
+  RangeConstant: LATEST | FIRST | ALL;
+
+  QUANTILEMATH : QUANTILE '(' quantile=INT ')';
+
+  IQRMATH: IQR '(' threshold=NUMBER ')';

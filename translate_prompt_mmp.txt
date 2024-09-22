@@ -1,0 +1,3 @@
+prompt:"Erstelle mir einen MMP MMP4711 mit dem Businesskey MMP4711_Hurra.
+template:
+code:MMP4711

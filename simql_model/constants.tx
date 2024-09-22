@@ -1,0 +1,177 @@
+  AGG: 'agg' | 'AGG';
+  SUM: 'sum' | 'SUM';
+  PLUS: 'plus' | 'PLUS';
+  MINUS: 'minus' | 'MINUS';
+  MULT: 'mult' | 'MULT';
+  DIV: 'div' | 'DIV';
+  MIN: 'min' | 'MIN';
+  MAX: 'max' | 'MAX';
+  STDEV: 'stdev' | 'STDEV';
+  VAR: 'var' | 'VAR';
+  QUANTILE: 'quantile' | 'QUANTILE';
+  MEDIAN: 'median' | 'MEDIAN';
+  ZSCORE: 'zscore' | 'ZSCORE';
+ 
+  IQR: 'iqr' | 'IQR';
+  MEAN: 'mean' | 'MEAN';
+  COUNT: 'count' | 'COUNT';
+
+  VAGG: 'vagg' | 'VAGG';
+  VSUM: 'vsum' | 'VSUM';
+  VMULT: 'vmult' | 'VMULT';
+  VMIN: 'vmin' | 'VMIN';
+  VMAX: 'vmax' | 'VMAX';
+  VCOUNT: 'vcount' | 'VCOUNT';
+
+  RETURN:
+    'return' | 'RETURN'
+  ;
+
+  PASS:
+    'pass' | 'PASS'
+  ;
+
+  EXPR:
+    'expr' | 'EXPR'
+  ;
+
+  SECTION: 
+    'section' | 'SECTION'
+  ;
+
+  CALC:
+  'calc' | 'CALC'
+  ;
+
+  ENDSECTION:
+    'end' | 'END'
+  ;
+
+  MEASUREMENTS:
+  'measurements' | 'MEASUREMENTS'
+  ;
+
+  MMP:
+  'mmp' | 'MMP'
+  ;
+
+  REF:
+  'ref' | 'REF'
+  ;
+
+  REGISTER:
+  'register' | 'REGISTER'
+  ;
+
+  VARIABLES:
+  'variables' | 'VARIABLES'
+  ;
+
+  REFDATES:
+  'refdates' | 'REFDATES'
+  ;
+
+  RANGE:
+  'range' | 'RANGE'
+  ;
+
+  LOGIC:
+    'logic' | 'LOGIC'
+  ;
+
+  RESULT:
+    'result' | 'RESULT'
+  ;
+
+  DATEFROM:
+  'dateFrom'
+  ;
+
+  DATETO:
+  'dateTo'
+  ;
+
+  MATH:
+  'math' | 'MATH'
+  ;
+
+  LOAD:
+  'load' | 'LOAD'
+  ;
+
+  DATA:
+  'data' | 'DATA'
+  ;
+
+  COMPUTE:
+  'compute' | 'COMPUTE'
+  ;
+
+  SAVE:
+  'save' | 'SAVE'
+  ;
+
+  DEFINE:
+  'define' | 'DEFINE'
+  ;
+
+  DEFINE2D:
+  'define2d' | 'DEFINE2D'
+  ;
+
+  WITH:
+  'with' | 'WITH'
+  ;
+
+  REFERENCE:
+  'reference' | 'REFERENCE'
+  ;
+
+  STORE:
+  'store' | 'STORE'
+  ;
+
+  FOR:
+  'for' | 'FOR'
+  ;
+
+  END:
+  'end' | 'END'
+  ;
+
+  ABS:
+  'abs' | 'ABS'
+  ;
+
+
+  TODAY: 'today' | 'TODAY';
+
+  SLA: 'sla' | 'SLA';
+
+  AT: 'at' | 'AT';
+  KT: 'kt' | 'KT';
+
+  QUALITY_LEVEL:
+  'qualityLevel'
+  ;
+
+  ENVIRONMENT:
+  'environment' | 'ENVIRONMENT'
+  ;
+
+  
+  FIRST:
+  'first' | 'FIRST'
+  ;
+
+  LATEST:
+  'latest' | 'LATEST'
+  ;
+
+  ALL:
+  'all' | 'ALL'
+  ;
+
+  JOIN:
+  'join' | 'JOIN'
+  ;

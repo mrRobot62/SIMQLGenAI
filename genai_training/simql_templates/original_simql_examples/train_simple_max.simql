@@ -1,0 +1,39 @@
+#multiple MMPs can be defined in a single file
+mmp MAX_LONG_VERSION
+
+    register "MMP_MAX_LONG_VERSION"
+
+    section measurements:
+        mp1 reference "MP_SIMQL_DEMONSTRATION1"
+ 
+    section variables: #multiple variables can be defined per 'define' statement, but one per line appears as more readable
+        define var #variable to save intermediate data
+        define result #variable holding the end result, could be named differently
+
+    section logic:
+
+    var = load data(ref=[mp1], range=ALL) #load the data first, to seperate data load from calculation
+    result = compute data(variables=[var], math=MAX) #scalarize each key to save
+
+    section result: #variable to be saved must only hold one value per key, thus the required scalarization
+        save result #return the result variable
+end #MAX_LONG_VERSION
+
+
+mmp MAX_SHORT_VERSION
+
+    register "MMP_MAX_SHORT_VERSION"
+
+    section measurements:
+        mp1 reference "MP_SIMQL_DEMONSTRATION1"
+ 
+    section variables:
+        define result
+
+    section logic:
+
+    result = compute data(ref=[mp1], range=ALL, math=MAX) #here the compute data statement loads both the data from the MP 'mp1' and performs a max operation on it, which calculates the maximum value for each key; the ALL value refers to all data submitions that were done for the specific refdate. The refdate here is implicitly: CREF
+
+    section result:
+        save result
+end #MAX_SHORT

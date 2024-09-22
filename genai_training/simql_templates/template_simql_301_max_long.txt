@@ -1,0 +1,16 @@
+mmp {mmp_alias}
+    register "{mmp_name}"
+
+    section measurements:
+        vMP1 reference "{mp1}"
+ 
+    section variables:
+        define vTmp1, vResult
+
+    section logic:
+        vTmp1 = load data(ref=[{mp1}], range=ALL) 
+        vResult = compute data(variables=[vTmp1], math=MAX) 
+
+    section result: 
+        save vResult 
+end 

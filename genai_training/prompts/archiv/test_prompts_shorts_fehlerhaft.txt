@@ -1,0 +1,55 @@
+#-----------------------------------------------------------------------------------------------
+# PROMPT-File für SIMQL Beschreibungen
+# Der aufbau gliedert sich pro Prompt in drei Bereiche
+# prompt : hier steht der natürlichsprachige Text. Der Text kann mehrzeilig sein
+# template: hier kann ein SIMQL-Template angeben wird, das zu diesem Prompt den DSL-Code bereitstellt
+# code: hier kann eine einfache Codesequenz (SIMQL) stehen. Die Codezeile kann über mehrere Zeilen gehen
+#-----------------------------------------------------------------------------------------------
+
+#
+# Es wird nur ein einfaches MMP-Skeleton besschrieben mmp MMPxyz register "MMP_xyz_name" end
+#prompt:  {mmp_alias}  {mmp_name}.
+#template:
+#code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+#|
+
+prompt: Generiere einen MMP {mmp_alias} und dem Businesskey {mmp_name}:
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt: Erstelle einen neuen MetaMesspunkt mit dem Nampen {mmp_alias} und registriere ihn mit {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt: Neuer MMP {mmp_alias}, BK {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt: Neuer MMP mit Alias {mmp_alias} und Businesskey {mmp_name}.
+template:
+code: 
+|
+prompt:Erstelle diesen MMP {mmp_alias} und verwende diesen Name {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt: Baue einen neuen MetaMesspunkt. Nutze den Alias {mmp_alias} und registriere mit ihn mit {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt: Implementiere mir einen neuen MetaMesspunkt {mmp_alias}. Verwende den Businesskey {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt:Implementiere neuen MetaMesspunkt {mmp_alias}. Verwende den BK {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt:Kreiere einen neuen MMP {mmp_alias}. Nutze diesen BK {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|
+prompt:Entwerfe diesen MMP {mmp_alias}, nutze diesen Businesskey {mmp_name}.
+template:
+code: mmp {mmp_alias}\n\tregister "{mmp_name}"\n\nend
+|

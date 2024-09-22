@@ -1,0 +1,24 @@
+mmp {mmp_alias}
+    register "{mmp_name}"
+
+    section measurements:
+        vMP1 reference "{mp1}"
+        vMP2 reference "{mp2}"
+ 
+ 
+    section variables:
+        define x,y, vResult
+ 
+    section variables: 
+        define x,y,result 
+         
+    section logic: #all the logic goes here
+
+        x = LOAD DATA(ref=[vMP1], {refdate}", {qlevel}, range=LATEST) 
+        y = LOAD DATA(ref=[vMP2], {refdate}", {qlevel}, range=LATEST) 
+        vResult = COMPUTE DATA(variables=[x,y], math=MINUS) 
+    
+    section result:
+        save vResult #save our final result
+     
+end

@@ -1,0 +1,52 @@
+Registriere die Messpunktgruppe '{mmp_alias}'. Verwende die Messpunkte '{mp1}' und '{mp2}'. 
+Lade Daten Level {qlevel} aus der Umgebung '{environment}'. 
+Berechne die {math} der Variablen und speichere das Ergebnis.#template_simql_simple
+|
+Erstelle einen Metamesspunkt {mmp_alias}. Dieser MMP verwendet zwei Messpunkte {mp1} und {mp2}.
+Die Daten sollen aus der {environment} geladen werden. Laden jeweils den {data_range} Datensatz und nutze die {math} Funktion.
+Speichere das Ergebnis#template_simql_simple
+|
+Neuer MMP {mmp_alias}, zwei Messpunkte {mp1}, {mp2}, range={data_range}, refdate1={refdate1}, math={math}#template_simql_simple
+|
+Generiere einen neuen MMMP {mmp_alias} mit zwei MPs {mp1} und {mp2}. Lade die Daten zum Stichtag {refdate1} und nutze die {math} Funktion. 
+Persistiere das Ergbnis.#template_simql_simple
+|
+Implementiere einen Metamesspunkt {mmp_alias}. Dieser MMP soll zwei Messpunkte {mp1} und {mp2} im Eingang nutzen.
+Als Stichtag verwende {refdate1} und berechne anschließend {math}.Daten laden aus {environment}.#template_simql_simple
+|
+Generiere einen Metamesspunkt {mmp_alias}. Dieser MMP arbeitet mit zwei Messpunkten {mp1} und {mp2}. Daten sollen zum Stichtag {refdate2} geladen werden.
+Nutze das Environment {environment}. Laden jeweils den {data_range} Datensatz und nutze die {math} Funktion.
+Speichere das Ergebnis#template_simql_simple
+|
+Erzeuge einen MMP {mmp_alias}. Speichere das MAX ergebnis des Messpunkts {mp1}#template_simql_max_short
+|
+Erstelle {mmp_alias}, {mp1}, ALL, MAX#template_simql_max_short
+|
+Generiere {mmp_alias} mit {mp1}, berechne MAX#template_simql_max_short
+|
+Neuer {mmp_alias}. Lade {mp1} und laden den max wert#template_simql_max_short
+|
+Erzeuge einen MMP {mmp_alias}. Speichere das MAX (math=MAX) ergebnis des Messpunkts {mp1}#template_simql_max_long
+|
+Erstelle {mmp_alias}, {mp1}, ALL, MAX. math=MAX#template_simql_max_long
+|
+Generiere {mmp_alias} mit {mp1}, berechne MAX#template_simql_max_long
+|
+Neuer {mmp_alias}. Lade {mp1} und laden den max wert#template_simql_max_long
+|
+Erstelle {mmp_alias} mit {mp1} {mp2} und subtrahiere jeweils den letzten Wert. math=MINUS#template_simql_minus
+|
+Generiere mir {mmp_alias}. Verwende {mp1} und {mp2} und subtrahiere jeweils den letzten Wert. math=MINUS#template_simql_minus
+|
+Erzeuge {mmp_alias}.Referenziere auf {mp1} und {mp2}. Führe eine Subtraktion durch. math=MINUS#template_simql_minus
+|
+Bastel mir mal einen MMP mit dem Namen {mmp_alias}, dieser muss mit diesen MPs arbeiten {mp1} und {mp2}. 
+Aggregiere die Ergebnisse beider Messpunkte und speichere. Verwende bei beiden Messpunkten immer den ersten Datensatz der gefunden wird
+zum aktuellen Stichtag#template_simql_simple
+|
+Erstelle {mmp_alias} mit zwei Messpunkten {mp1} und {mp2}. Nutze den aktuellen Stichtag und führe eine Aggregation durch#template_simql_simple
+|
+Erstelle {mmp_alias} mit zwei Messpunkten {mp1} und {mp2}. Nutze den letzten Stichtag und führe eine Subtraktion durch#template_simql_simple
+|
+Genriere {mmp_alias} mit {mp1} und {mp2}. Nutze den aktuellen Stichtag und summiere die Daten#template_simql_simple
+|

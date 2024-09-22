@@ -1,0 +1,19 @@
+mmp {mmp_alias}
+
+    register "{mmp_name}"
+
+    section measurements:
+        vMP1 reference "{mp1}"
+ 
+    section variables:
+        define vResult
+
+    section logic:
+        # here the compute data statement loads both the data from the MP '{mp1}' and performs a max operation on it, 
+        # which calculates the maximum value for each key; the ALL value refers to all data submitions that were done for the specific refdate. 
+        # The refdate here is implicitly: CREF
+
+        vResult = compute data(ref=[vMP1], range=ALL, math=MAX) 
+    section result:
+        save result
+end

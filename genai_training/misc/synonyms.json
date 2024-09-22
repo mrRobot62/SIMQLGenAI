@@ -1,0 +1,19 @@
+{
+    "lade": ["importiere", "hole", "abrufe", "ziehe"],
+    "nutze": ["verwende", "gebrauche", "setze ein", "benutze"],
+    "lese": ["extrahiere", "scanne", "entnehme", "lade"],
+    "daten": ["informationen", "daten", "inhalte"],
+    "für": ["zwecks", "zur", "für die", "im Rahmen von"],
+    "analyse": ["untersuchung", "auswertung", "analyse"],
+    "erzeuge": ["generiere", "erstelle", "baue", "entwickle"],
+    "meta": ["übergeordnete", "allgemeine", "metadaten"],
+    "messpunkt": ["punkt", "sensor", "messstelle"],
+    "referenziere": ["verweise", "beziehe dich auf", "verknüpfe mit"],
+    "BK": ["geschäftsschlüssel", "geschäftliche kennung", "key"],
+    "businesskey": ["geschäftsschlüssel", "geschäftliche kennung", "key"],
+    "MMP":["MetaMesspunkt", "Meta Messpunkt"],
+    "MP":["Messpunkt", "Sensor", "Messsystem", "Kanal", "Channel"],
+    "MPs":["Messpunkte", "Sensoren", "Messsysteme", "Kanäle", "Channels", "Eingangssystem"],
+    "addiere":["summiere", "aggregiere", "bilde die Summe", "" ]
+  }
+  

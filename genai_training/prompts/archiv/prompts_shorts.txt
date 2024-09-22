@@ -1,0 +1,68 @@
+#-----------------------------------------------------------------------------------------------
+# PROMPT-File für SIMQL Beschreibungen
+# Der aufbau gliedert sich pro Prompt in drei Bereiche
+# prompt : hier steht der natürlichsprachige Text. Der Text kann mehrzeilig sein
+# template: hier kann ein SIMQL-Template angeben wird, das zu diesem Prompt den DSL-Code bereitstellt
+# code: hier kann eine einfache Codesequenz (SIMQL) stehen. Die Codezeile kann über mehrere Zeilen gehen
+#-----------------------------------------------------------------------------------------------
+
+#
+# Es wird nur ein einfaches MMP-Skeleton besschrieben der MMP alias wird automatisch generiert. 
+# Der {mmp_name} entspricht dem registrierungsnamen des MMP.
+# 
+# Beachten: BusinessKeys müssen in Anführungszeichen oder einfachen Anführungszeichen gesetzt werden, da der Registrierungsname
+#           so beibehalten werden muss und nicht umgwandelt werden darf.
+#
+#prompt: {mmp_name}.
+#template:
+#code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+#|
+
+prompt: Generiere einen MMP mit dem Businesskey '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt: Erstelle einen neuen MetaMesspunkt mit dem Namen '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt: Neuer MMP '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt: Neuer MMP und Businesskey '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Erstelle einen MMP verwende diesen Name '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt: Baue einen neuen MetaMesspunkt. Nutze folgende Registrierung '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt: Implementiere mir einen neuen MetaMesspunkt '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Implementiere neuen MetaMesspunkt '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Kreiere einen neuen MMP '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Entwerfe diesen MMP '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Kreiere einen neuen MetaMesspunkt '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|
+prompt:Entwerfe diesen MetaMesspunkt '{mmp_name}'.
+template:
+code: mmp {mmp_alias}\n\t register "{mmp_name}"\n\n end
+|

@@ -1,0 +1,18 @@
+mmp IQR
+ 
+    register "MMP_IQR"
+     
+    section measurements:
+        mpX reference "MP_SIMQL_DEMONSTRATION1"
+ 
+    section variables:
+        define result
+         
+    section logic:
+
+        result = COMPUTE DATA(ref=[mpX], refdates=["CREF","CREF-1","CREF-2"], qualityLevel="U4", range=LATEST, math=IQR(1)) #calculate interquartile range with a threshold of 1
+    
+    section result:
+        save result #save/return the result
+     
+end #IQR
