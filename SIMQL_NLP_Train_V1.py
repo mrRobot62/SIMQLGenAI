@@ -319,7 +319,7 @@ class SIMQL_NLP_Training:
         #inputs = [ex["text"] for ex in examples]
         inputs = examples["text"]
         #targets = [ex["code"] for ex in examples]
-        targets = examples["code"]
+        dsl_output = examples["code"]
         max_length = self.nlp_params['tokenizer_max_length']
         model_inputs = self.tokenizer(
             inputs, 
@@ -330,7 +330,7 @@ class SIMQL_NLP_Training:
         # Tokenisierung der Labels
         with self.tokenizer.as_target_tokenizer():
             labels = self.tokenizer(
-                targets, 
+                dsl_output, 
                 max_length=max_length, 
                 truncation=True, 
                 padding="max_length")
@@ -386,6 +386,11 @@ def parse_arguments():
 
 
 def main():
+
+    # vermeidedit die huggingface/tokenizer warnung: huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+    os.environ['TOKENIZERS_PARALLELISM'] = 'true'
+    os.environ['PYDEVD_DISABLE_FILE_VALIDATION'] = str(1)
+
     args = parse_arguments()
     
     prompt = ""

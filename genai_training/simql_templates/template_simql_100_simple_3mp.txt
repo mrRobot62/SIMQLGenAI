@@ -1,0 +1,31 @@
+#
+#--------------------------------------------------------------------------
+# SIMQL Template with three input measurements
+# result is calculated via one compute data statement for all 
+# input measurements
+#--------------------------------------------------------------------------
+
+mmp {mmp_alias} 
+    
+    register "{mmp_name}"
+     
+    section measurements: 
+        vMP1 reference "{mp1}" 
+        vMP2 reference "{mp2}" 
+        vMP3 reference "{mp3}" 
+ 
+    section variables: 
+        define vTmp1, vTmp2, vTmp3, vResult 
+         
+    section logic: #all the logic goes here
+
+        vTmp1 = LOAD DATA(ref=[vMP1], refdates=[${refdate}], range=${range})
+        vTmp2 = LOAD DATA(ref=[vMP2], refdates=[${refdate}], range=${range})
+        vTmp3 = LOAD DATA(ref=[vMP3], refdates=[${refdate}], range=${range})
+        vResult = COMPUTE DATA(variables=[vTmp1, vTmp2, vTmp3], math=${math})
+    
+    section result:
+        save  vResult #save our final result
+     
+end 
+;

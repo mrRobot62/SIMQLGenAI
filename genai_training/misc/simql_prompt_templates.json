@@ -1,67 +1,8 @@
 {
-    "mmp" : [
-        {"intro1" : ["Erstelle", "Generiere", "Implementiere","Baue", "Kreiere", "Verwende", "Entwerfe", "Bastel"]},
-        {"reference": ["referenziere mit", "nutze", "benutze", "nutze diesen", "verwende"]},
-        {"prompts" : [
-            "{intro1} einen MetaMesspunkt mit folgendem Namen '{mmp_name}'.",
-            "{intro1} MetaMesspunkt '{mmp_name}'.",
-            "{intro1} mir einen MetaMesspunkt mit {reference} '{mmp_name}'.",
-            "{intro1} diesen neuen Metamesspunkt {reference} '{mmp_name}'.",
-            "{intro1} Businesskey '{mmp_name}'",
-            "{intro1} und {reference} Metamesspunkt '{mmp_name}'.",
-            "{reference} '{mmp_name}' und {intro1} einen neuen Metamesspunkt",
-            "Bitte {intro1} einen Metamesspunkt und {reference} folgenden Registrierungsnamen '{mmp_name}'",
-            "Benötigt wird ein metamesspunkt. {intro1} und {reference} '{mmp_name}'"
-        ]},
-        {"code":"mmp {mmp_alias}\n\tregister \"{mmp_name}\"\n\nsection result:\n\tsave vResult\n\nend\n;"},
-        {"template":""}
-    ],
-    "mp2": [
-        {"intro1" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere"]},
-        {"reference": ["", "diese", "folgende", "folgende zwei"]},
-        {"prompts" : [
-            "{intro1} {reference} Messpunkte '{mp1}' und '{mp2}'.",
-            "{intro1} {reference} beiden Messpunkte '{mp1}' und '{mp2}'.",
-            "{intro1} beiden Messpunkte '{mp1}' und '{mp2}'.",
-            "{intro1} zwei Messpunkte '{mp1}' und '{mp2}'.",
-            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}'.",
-            "{intro1} Messpunkte '{mp1}', '{mp2}'."
-        ]},
-        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2\n\n"},
-        {"template":""}
-    ],
-    "mp3": [
-        {"intro1" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
-        {"reference": ["", "diese", "folgende", "folgende drei"]},
-        {"prompts" : [
-            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
-            "{intro1} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
-            "{intro1} {reference} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
-            "{intro1} {reference} drei Messpunkte '{mp1}' '{mp2}' '{mp3}'.",
-            "{intro1} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
-            "{intro1} drei Messpunkte '{mp1}', '{mp2}', '{mp3}'."
-        ]},
-        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3\n\n"},
-        {"template":""}
-    ],
-    "mp4": [
-        {"intro1" : ["Benutze diese", "Lade diese", "Nutze folgende ", "Erstelle", "Benötigt werden folgende", "Verwende", "Referenziere diese"]},
-        {"reference": ["", "diese", "folgende", "folgende vier"]},
-        {"prompts" : [
-            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
-            "{intro1} Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
-            "{intro1} {reference} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
-            "{intro1} {reference} vier Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
-            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
-            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}', '{mp4}'"
-        ]},
-        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\tvMP4 reference '{mp4}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3, vTmp4\n\n"},
-        {"template":""}
-    ],
     "synonyms" :
         {
             "synonym_daten": ["Daten", "Datensätze", "Sätze", "Messerte", "Fakten", "Werte", "Informationen", "Ergebnisse"],
-            "synonym_wert" : ["Messert", "Satz", "Datensatz", "Wert"]
+            "synonym_wert" : ["Messwert", "Satz", "Datensatz", "Wert"]
         }
     ,
     "useable_refdates": [ 
@@ -81,17 +22,76 @@
         { "prompts": ["der letzten drei Jahren"], "code":"'YREF','YREF-1','YREF-2'"}
     ],
     "useable_math" : [
-        {"prompts":["Summiere alle {synonym_daten}", "Aggregiere die {synonym_daten}", "Addiere die {synonym_daten}"], "code":"AGG"},
+        {"prompts":["Summiere alle ${synonym_daten}", "Aggregiere die ${synonym_daten}", "Addiere die ${synonym_daten}"], "code":"AGG"},
         {"prompts":["Berechne die Differenz", "Ziehe die Werte voneinander ab"], "code":"DIFF"},
-        {"prompts":["Berechne den kleinsten {synonym_wert}"], "code":"MIN"},
-        {"prompts":["Berechne den größten {synonym_wert}"], "code":"MAX"},
-        {"prompts":["Berechne die Standardabweichung der {synonym_data}"], "code":"STDEV"},
-        {"prompts":["Bilde das Produkt aller {synonym_wert} Werten","Multipliziere die {synonym_daten}","Führe eine Multiplikation der {synonym_daten} durch"], "code":"MULT"}
+        {"prompts":["Berechne den kleinsten ${synonym_wert}"], "code":"MIN"},
+        {"prompts":["Berechne den größten ${synonym_wert}"], "code":"MAX"},
+        {"prompts":["Berechne die Standardabweichung der ${synonym_daten}"], "code":"STDEV"},
+        {"prompts":["Bilde das Produkt aller ${synonym_wert} Werte","Multipliziere die ${synonym_daten}","Führe eine Multiplikation der ${synonym_daten} durch"], "code":"MULT"}
     ],
     "useable_ranges" : [
         {"prompts":["lade den letzten Datensatz", "lade die letzten Datensätze", "nutze den neusten Datensatz", "nutze die neusten Datensätze", "Greife auf den letzten Datensatz zu", "Verwende den aktuellesten Datensatz", "Verwende die aktuellsten Datensätze"], "code":"LATEST"},
         {"prompts":["lade den ersten Datensatz", "lade die frühesten Datensätze", "nutze den ersten Datensatz", "nutze die ersten Datensätze", "Greife auf den ersten Datensatz zu", "Verwende den ältesten Datensatz", "Verwende die ältesten Datensätze"], "code":"FIRST"},
         {"prompts":["lade alle Datensätze", "lade jeden Datensatz", "nutze alle Datensätze", "nutze jeden Datensatz", "Greife auf alle Datensätze zu", "Verwende jeden Datensatz", "Verwende alle Datensätze"], "code":"ALL"}
+    ],
+    "mmp" : [
+        {"intro1" : ["Erstelle", "Generiere", "Verwirkliche", "Gestalte", "Installiere", "Implementiere","Baue", "Kreiere", "Verwende", "Entwerfe", "Bastel"]},
+        {"reference": ["referenziere mit", "nutze", "benutze", "nutze diesen", "verwende", "verweise auf", "verbinde", "verbinde mit", "verknüpfe", "verknüpfe mit"]},
+        {"prompts" : [
+            "{intro1} einen MetaMesspunkt mit folgendem Namen '{mmp_name}'.",
+            "{intro1} MetaMesspunkt '{mmp_name}'.",
+            "{intro1} mir einen MetaMesspunkt mit {reference} '{mmp_name}'.",
+            "{intro1} diesen neuen Metamesspunkt {reference} '{mmp_name}'.",
+            "{intro1} Businesskey '{mmp_name}'",
+            "{intro1} und {reference} Metamesspunkt '{mmp_name}'.",
+            "{reference} '{mmp_name}' und {intro1} einen neuen Metamesspunkt",
+            "Bitte {intro1} einen Metamesspunkt und {reference} folgenden Registrierungsnamen '{mmp_name}'",
+            "Benötigt wird ein metamesspunkt. {intro1} und {reference} '{mmp_name}'"
+        ]},
+        {"code":"mmp {mmp_alias}\n\tregister \"{mmp_name}\"\n\nsection result:\n\tsave vResult\n\nend\n;"},
+        {"template":""}
+    ],
+    "mp2": [
+        {"intro1" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere", "Greife auf", "Gebrauche", "Setze diese"]},
+        {"reference": ["", "diese", "folgende", "folgende zwei","diese angegeben"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} {reference} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} beiden Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} zwei Messpunkte '{mp1}' und '{mp2}'.",
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}'.",
+            "{intro1} Messpunkte '{mp1}', '{mp2}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2\n\n"},
+        {"template":""}
+    ],
+    "mp3": [
+        {"intro1" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere", "Greife auf", "Gebrauche", "Setze diese"]},
+        {"reference": ["", "diese", "folgende", "folgende drei","diese angegeben"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} {reference} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} {reference} drei Messpunkte '{mp1}' '{mp2}' '{mp3}'.",
+            "{intro1} drei Messpunkte '{mp1}', '{mp2}' und '{mp3}'.",
+            "{intro1} drei Messpunkte '{mp1}', '{mp2}', '{mp3}'."
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3\n\n"},
+        {"template":""}
+    ],
+    "mp4": [
+        {"intro1" : ["Benutze", "Lade", "Nutze", "Erstelle", "Benötigt werden", "Verwende", "Referenziere", "Greife auf", "Gebrauche", "Setze diese"]},
+        {"reference": ["", "diese", "folgende", "folgende vier","diese angegeben"]},
+        {"prompts" : [
+            "{intro1} {reference} Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{intro1} {reference} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} {reference} vier Messpunkte '{mp1}' '{mp2}' '{mp3}' '{mp4}'",
+            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}' und '{mp4}'",
+            "{intro1} vier Messpunkte '{mp1}', '{mp2}', '{mp3}', '{mp4}'"
+        ]},
+        {"code":"\tsection measurements:\n\tvMP1 reference '{mp1}'\n\tvMP2 reference '{mp2}'\n\tvMP3 reference '{mp3}'\n\tvMP4 reference '{mp4}'\n\n\tsection variables:\n\tdefine vResult, vTmp1, vTmp2, vTmp3, vTmp4\n\n"},
+        {"template":""}
     ],
     "loaddata_2mp" : [
         {"intro1" : ["Lade Daten", "verwende die Daten", "Nutze die Daten", "Importiere die Daten", "Hole Daten", "Extrahiere Daten", "Greife auf Daten zu", "Prüfe die Daten"]},
@@ -151,11 +151,19 @@
         {"template":""}
 
     ],
-    "simple_mp2" : [
+    "simple_2mp" : [
         {"links" : [
             ["mmp", "mp2", "loaddata_2mp"]
         ]},
         {"prompts" : []},
-        {"template":"template_simql_100_simple"}       
+        {"template":"template_simql_100_simple_2mp"}       
+    ], 
+    "simple_3mp" : [
+        {"links" : [
+            ["mmp", "mp3", "loaddata_3mp"]
+        ]},
+        {"prompts" : []},
+        {"template":"template_simql_100_simple_3mp"}       
     ]
+
 }

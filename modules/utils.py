@@ -1,7 +1,8 @@
 import re
 import json 
+import os
 from datetime import datetime
-
+import string
 
 
 def search_key_in_array_of_dicts(array_of_dicts, key_to_search, return_all=False):
@@ -139,3 +140,46 @@ def get_timepart(pattern="%Y%m%d_%H%M%S"):
     # Zeit als numerischer Wert inkl. Millisekunden formatieren
     time_part = now.strftime(pattern)  #    
     return time_part
+
+
+def load_text_file(path:str, file_name:str, as_array:bool=False) -> str:
+    """ 
+    lädt text file und gibt die Zeilen zurück. 
+
+    :param path - Pfad zum Template
+    :param file_name - Template-Name
+    :return Liefert den Inhalt des Templates zurück
+    """
+    file_name = os.path.join(path, file_name)
+    try:
+        with open(file_name,'r') as file:
+            if as_array:
+                template = file.readlines()
+            else:
+                template = file.read()
+
+    except FileNotFoundError as e:
+        print(f"{file_name} - nicht verfügbar")
+        raise e
+
+    return template
+
+def replace_placeholders(template, **kwargs):
+    """
+    Ersetzt die Platzhalter ${wert} und ${daten} im String dynamisch, wenn sie vorhanden sind.
+    Falls der Platzhalter im String vorhanden ist, aber kein entsprechender Wert übergeben wurde,
+    bleibt der Platzhalter erhalten.
+    
+    string.Template, welches Platzhalter im Format ${platzhalter} unterstützt.
+    safe_substitute(): Diese Methode ersetzt nur die vorhandenen Platzhalter, ohne Fehler zu werfen, 
+    wenn ein Platzhalter keinen entsprechenden Wert hat. Fehlende Platzhalter bleiben im String erhalten.
+    
+    :param template: Der String, der Platzhalter enthält.
+    :param kwargs: Die zu ersetzenden Werte für die Platzhalter.
+    :return: Der String mit den ersetzten Werten.
+    """
+    # Erstelle eine Template-Instanz
+    template_obj = string.Template(template)
+    
+    # Ersetze Platzhalter, wobei fehlende Platzhalter unverändert bleiben
+    return template_obj.safe_substitute(kwargs)

@@ -20,6 +20,7 @@ class PromptGenerator:
         self.input_file = os.path.join(self.input_path, args.input_file)
         self.output_path = args.output_path
         self.output_file_template = args.output_file
+        self.template_path = args.template_path
         self.prompt_path = args.output_path
         self.prompt_types = args.prompt_types
         self.number_of_rows = int(args.number_of_rows)
@@ -40,6 +41,7 @@ class PromptGenerator:
         self.code = ""
         self.template = ""
         self.verbose = args.v
+        self.template_suffix = ".txt"
 
     def run(self):
         for p_type in self.prompt_types:
@@ -83,14 +85,20 @@ class PromptGenerator:
         self.useable_ranges = self.data["useable_ranges"]
         self.useable_math = self.data["useable_math"]
         self.synonyms = self.data["synonyms"]
+
+        self.used_parameter_data = {}
         #
         # basierend auf prompt_type werden interen Listen initialisiert
         self._prepare_internal_data_lists()
 
         for id in range(number_of_rows):
             if len (self.links) > 0:
+                #
+                # Links selber sind einer einer doppelten Liste enthalten [[l1,l2,l3],[lx,ly.lz],...]
+                # bei Bedarf kann so eine verbesserte Augmentierung erreicht werden.
                 for link_list in self.links:
-                    print(f"({id:5d}) Generiere Prompts basierend auf LINKS: {link_list}")
+                    if self.verbose > 2:
+                        print(f"({id:5d}) Generiere Prompts basierend auf LINKS: {link_list}")
                     # prompt wird basierend auf die Anzahl der angegebenen Links aufgebaut
                     # '{0}\n{1}\n{2}' (Beispiel für drei links)
                     self.prompts = '\n'.join([f'{{{i}}}' for i in range(len(link_list))])
@@ -121,21 +129,56 @@ class PromptGenerator:
                         #self.prompts = orig_prompts
                         this_prompt = orig_prompts
                         gp = this_prompt.format(*link_prompts)
-
-                        
                         #
                         # nun nochmals für den original-prompttype code/template nachladen
                         self.prompt_type = orig_prompt_type
                         self._prepare_internal_data_lists()
                         complex_prompt = {
                             "prompt" : gp,
-                            "template" : self.template,
-                            "code" : self.code
+                            "template" : "",        # das angegeben Template wird gelöscht und später durch code ersetzt
+                            "code" : ""             # etwaigen Code ignorieren, wird später gesetzt
                         }
                         if self.verbose > 2:
                             print(f"{complex_prompt}")
                         content.append(complex_prompt)
+                    pass # for link_list in self.links:
+                    #----------------------------------------------------------------
+                    # Ab hier haben wir eine vollständige PROMPT Liste basierend auf
+                    # die angegebenen Links erstellt
+                    # nun muss das entsprechende Template noch geladen werden und
+                    # der Code vorbereitet werden.
+                    # Der fertiggestellt Code wird anschließend die die JSON-Struktur
+                    # kopiert
+                    #----------------------------------------------------------------
+                    file_name = self.template + self.template_suffix
+                    template_code = load_text_file(self.template_path, file_name)
+                    useable_math = random.choice(self.useable_math)
+                    useable_math_prompt = random.choice(useable_math['prompts'])
+                    usable_math_code = useable_math['code']
+                    #
+                    # Wenn ein Synonym vorhanden ist, dann ersetzen
+                    useable_math_prompt = replace_placeholders(
+                        useable_math_prompt,
+                        synonym_daten  = random.choice(self.synonyms["synonym_daten"]),
+                        synonym_wert  = random.choice(self.synonyms["synonym_wert"]),
+                    )
 
+                    #
+                    # zuästzlichen Math-Prompt am letzten Prompt im Conten-Array anhängen
+                    content[-1]['prompt'] += useable_math_prompt
+                    #
+                    # das Prompt durch folgende Parameter ergänzt
+                    #   range, refdate, math
+                    template_code = replace_placeholders(
+                        template_code,
+                        range = self.used_parameter_data["range"],
+                        refdate=self.used_parameter_data["refdate"],
+                        math=usable_math_code
+                    )
+                    content[-1]['code'] = template_code
+                    #
+                    #print (content[-1])
+                pass 
             else:
                 content.append(self._generate_prompt())
         
@@ -253,6 +296,13 @@ class PromptGenerator:
                 refdate=useable_refdates_choice['code'],
                 range=useable_ranges_choice['code']
             )
+            #
+            # die genutzten allgemeinen Parameter speicheren wir zusätulich ein einer Klassenvariable
+            # (wird benötigt, wenn man komplexe Prompts über Links zusammenbauen möchte)
+            self.used_parameter_data = {
+                "refdate"   : useable_refdates_choice['code'],
+                "range"     : useable_ranges_choice['code']
+            }
         except KeyError as e:
             # an dieser STelle können wir jetzt nicht prüfen ob ein Key im Template 
             # korrekt vorhanden ist.
@@ -260,10 +310,12 @@ class PromptGenerator:
             code = self.code 
 
         generated_prompt = {
-            "prompt" : prompt,
-            "template" : self.template,
-            "code" : code
+            "prompt"    : prompt,
+            "template"  : self.template,
+            "code"      : code
         }
+
+
         if self.verbose > 1:
             print(f"{generated_prompt}")
         return generated_prompt
@@ -295,6 +347,7 @@ def parse_arguments():
     """
     parser = argparse.ArgumentParser(description="Trainingsdatengenerator V2")
     parser.add_argument('--input_path', required=True, help='Pfad zur PROMPT-JSON Augmentationdatei')
+    parser.add_argument('--template_path', required=True, help='Pfad zur SIMQL-Templates')
     parser.add_argument('--input_file', required=True, help='JSON-Augmentationdatei')
     parser.add_argument('--output_path', required=True, help='Pfad wo die generierte Dateien gespeichert werden')
     parser.add_argument('--output_file', default='prompt_{ts}_{prompt_type}.txt', help="Ausgabedateien die generiert werden (Template-Filename)")
@@ -305,6 +358,11 @@ def parse_arguments():
     return parser.parse_args()
 
 def main():
+
+    #template = load_text_file("genai_training/simql_templates","template_simql_100_simple.txt")
+    #print(template)
+
+
     args = parse_arguments()
     
     try:
