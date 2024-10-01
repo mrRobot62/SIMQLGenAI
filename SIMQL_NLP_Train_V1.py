@@ -6,7 +6,7 @@ from datasets import Dataset
 from modules.LoadTrainData import LoadTrainData
 from prettytable import PrettyTable
 from modules.CodeTimer import CodeTimer
-
+from modules.utils import *
 from collections import Counter
 
 from torch.utils.data import DataLoader
@@ -121,7 +121,11 @@ class SIMQL_NLP_Training:
         :return tokenizer Gibt ein Tokenizer-Objekt zurück
         """
         try:
-            if self.nlp_params['device'] == 'cpu':
+            self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
+            #
+            # unter MacOS ist es besser (effizienter) mit 'mps' (MetalPerformanceShader) zu arbeiten als mit 'cpu'
+            if self.nlp_params['device'] == 'cpu' or self.device == 'cpu':
                 if self.nlp_params['system'] == 'osx-m3':
                     multiprocessing.set_start_method('fork', force=True)
                 print (f"Modell wird auf CPU-Basis aufgesetzt ...")
@@ -188,6 +192,28 @@ class SIMQL_NLP_Training:
         trained_data_json = self.loader.getJson(self.df_train)
         print(f"Geladene Trainingsätze: {len(trained_data_json)}")
 
+        additional_tokens =  set()
+        #
+        # Prompts als Tokens aufnehmen
+        # SIMQL-Code als Tokens aufnehmen
+        for text in trained_data_json:
+            words = text['text'].split()
+            codes = text['code'].split()
+            additional_tokens.update(words)
+            additional_tokens.update(codes)
+
+        additional_tokens = sorted(list(remove_entries_by_pattern(
+            additional_tokens, 
+            wildcard_patterns=["AUTO*","MMP*_*",".", "#", "#all", "#save"],
+            regex_patterns=[r"\"MMP\d+_.+\"", r"\'MMP\d+_.+\'"]  
+        )))
+        additional_tokens = sorted(list(remove_entries_by_pattern(
+            additional_tokens, 
+            regex_patterns=[r"\"", r"\'"]  
+        )))
+        # save_text_file('./', 'additional_tokens.txt', all_tokens)
+
+
         dataset = Dataset.from_list(trained_data_json)
 
         model_eval = {}
@@ -203,6 +229,8 @@ class SIMQL_NLP_Training:
         #
         dsl_tokens = self._load_dsl_tokens('./',self.tokens_file)
         self.tokenizer.add_tokens(dsl_tokens)
+        self.tokenizer.add_tokens(additional_tokens)
+
         # Anpassen des Modells an die neue Größe des Tokenizers
         self.model.resize_token_embeddings(len(self.tokenizer))
         print(f"Nachladen spezieller Tokens. Neue Tokenizer-Größe: {len(self.tokenizer)}")

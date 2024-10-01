@@ -3,7 +3,7 @@ import json
 import os
 from datetime import datetime
 import string
-
+import fnmatch
 
 def search_key_in_array_of_dicts(array_of_dicts, key_to_search, return_all=False):
     """
@@ -164,6 +164,19 @@ def load_text_file(path:str, file_name:str, as_array:bool=False) -> str:
 
     return template
 
+def save_text_file(path:str, file_name:str, data_array):
+    """ 
+    Schreibt data in ein Text-File in path mit file_name
+
+    :param path Pfad wo gespeichert wird
+    :param file_name Dateiname
+    :param data_array Daten die gespeichert werden
+
+    """
+    file_name = os.path.join(path, file_name)
+    with open(file_name, 'w') as file:
+        json.dump(data_array, file)
+
 def replace_placeholders(template, **kwargs):
     """
     Ersetzt die Platzhalter ${wert} und ${daten} im String dynamisch, wenn sie vorhanden sind.
@@ -173,7 +186,7 @@ def replace_placeholders(template, **kwargs):
     string.Template, welches Platzhalter im Format ${platzhalter} unterstützt.
     safe_substitute(): Diese Methode ersetzt nur die vorhandenen Platzhalter, ohne Fehler zu werfen, 
     wenn ein Platzhalter keinen entsprechenden Wert hat. Fehlende Platzhalter bleiben im String erhalten.
-    
+
     :param template: Der String, der Platzhalter enthält.
     :param kwargs: Die zu ersetzenden Werte für die Platzhalter.
     :return: Der String mit den ersetzten Werten.
@@ -183,3 +196,36 @@ def replace_placeholders(template, **kwargs):
     
     # Ersetze Platzhalter, wobei fehlende Platzhalter unverändert bleiben
     return template_obj.safe_substitute(kwargs)
+
+def remove_entries_by_pattern(entry_set, regex_patterns=None, wildcard_patterns=None):
+    """
+    Entfernt Einträge aus einem Set, die entweder einem regulären Ausdruck oder Wildcards entsprechen.
+    
+    :param entry_set: Set mit Einträgen.
+    :param regex_patterns: Liste von regulären Ausdrücken.
+    :param wildcard_patterns: Liste von Wildcard-Strings (wie "AUTO_*").
+    :return: Set ohne die Einträge, die den Mustern entsprechen.
+    """
+    # Wenn kein Muster vorhanden ist, gib das ursprüngliche Set zurück
+    if not regex_patterns and not wildcard_patterns:
+        return entry_set
+
+    # Kompiliere die regulären Ausdrücke
+    compiled_regexes = [re.compile(pattern) for pattern in regex_patterns] if regex_patterns else []
+    
+    # Führe das Filtern durch
+    filtered_set = set()
+    for entry in entry_set:
+        # Überprüfe auf reguläre Ausdrücke
+        if any(regex.match(entry) for regex in compiled_regexes):
+            continue
+        
+        # Überprüfe auf Wildcard-Muster
+        if any(fnmatch.fnmatch(entry, pattern) for pattern in wildcard_patterns or []):
+            continue
+        
+        # Behalte den Eintrag, wenn er kein Muster trifft
+        filtered_set.add(entry)
+    
+    return filtered_set
+

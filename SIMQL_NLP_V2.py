@@ -188,7 +188,11 @@ class SIMQL_NLP:
             else:
                 self._tokenizer = T5Tokenizer.from_pretrained(self.path_model)
                 self._model = T5ForConditionalGeneration.from_pretrained(self.path_model).to(self._device)
+                self._model.resize_token_embeddings(len(self._tokenizer))
+
                 print("SIMQL NLP Modell erfolgreich initialisiert.")
+
+            print(f"Anzahl geladener Tokens: {len(self._tokenizer)}")
 
             return self._device, self._model, self._tokenizer
         except Exception as e:

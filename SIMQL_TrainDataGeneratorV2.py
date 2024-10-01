@@ -347,6 +347,28 @@ class TraindataGeneratorV2:
         examples, number_unique_prompts = remove_duplicates_by_prompt(dicts_array=examples, key='text')
         print(f"Unique Prompts:             '{number_unique_prompts}'")
         
+        # all_tokens = set()      # set verwenden um duplikate zu vermeiden
+        # #
+        # # Prompts als Tokens aufnehmen
+        # # SIMQL-Code als Tokens aufnehmen
+        # for text in examples:
+        #     words = text['text'].split()
+        #     codes = text['code'].split()
+        #     all_tokens.update(words)
+        #     all_tokens.update(codes)
+
+        # all_tokens = sorted(list(remove_entries_by_pattern(
+        #     all_tokens, 
+        #     wildcard_patterns=["AUTO*","MMP*_*",".", "#", "#all", "#save"],
+        #     regex_patterns=[r"\"MMP\d+_.+\"", r"\'MMP\d+_.+\'"]  
+        # )))
+        # all_tokens = sorted(list(remove_entries_by_pattern(
+        #     all_tokens, 
+        #     regex_patterns=[r"\"", r"\'"]  
+        # )))
+        # save_text_file('./', 'additional_tokens.txt', all_tokens)
+
+        print (f"Neue Tokens basierend auf PROMPTS & Code: {len(all_tokens)}")    
         try:
             with open(self.out_file, 'w') as json_file:
                 json.dump(examples, json_file, indent=2)

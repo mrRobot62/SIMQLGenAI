@@ -67,12 +67,12 @@
                 "--train_files",        "['train_data_20240923_1813_0011410.json']",                
                 "--nlp_param_file",     "simql_nlp_params.json",
                 "--tokens_file",        "simql_tokens.txt",
-                "--resetModel",
+                //"--resetModel",
                 "--train_model",        "T5-small",
             ]
         },
         {
-            "name": "(4) SIMQL NLP",
+            "name": "(4) SIMQL NLP V2",
             "type": "debugpy",
             "request": "launch",
 //            "program": "${file}",
