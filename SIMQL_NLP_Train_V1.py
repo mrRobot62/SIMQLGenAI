@@ -126,16 +126,23 @@ class SIMQL_NLP_Training:
         :return tokenizer Gibt ein Tokenizer-Objekt zurück
         """
         try:
-            #
-            # wenn das Gerät MPS fähig wird wird auch mps verwendet
-            self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+
+            if torch.cuda.is_available() :
+                print(f"Modell wird auf CUDA-Basis aufgesetzt ...")
+                self.device = torch.device("cuda")
+            elif torch.backends.mps.is_available():
+                self.device = torch.device("mps")
+                print(f"Modell wird auf MP-Basis aufgesetzt ...")
+            else:
+                self.device = torch.device("cpu")
+                print(f"Modell wird auf CPU-Basis aufgesetzt ...")
 
             #
             # unter MacOS ist es besser (effizienter) mit 'mps' (MetalPerformanceShader) zu arbeiten als mit 'cpu'
             if self.nlp_params['device'] == 'cpu' or self.device == 'cpu':
                 if self.nlp_params['system'] == 'osx-m3':
+                    print(f"OSX M3 Case fuer Forking on CPU ...")
                     multiprocessing.set_start_method('fork', force=True)
-                print (f"Modell wird auf CPU-Basis aufgesetzt ...")
                 self.device = torch.device("cpu")
                 tensor = torch.randn(1, 10).to(self.device)
                 print(f"Tensor: {tensor}")

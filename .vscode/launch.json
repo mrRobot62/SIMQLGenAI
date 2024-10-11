@@ -82,7 +82,7 @@
                 "-v",
                 "--path_train_data",    "genai_training/out_data",
                 "--path_model_out",     "genai_out",
-                "--path_model",         "genai_model/training_mmp_t5_base",
+                "--path_model",         "genai_model/training_warning_test",
                 "--simql_model_path",   "simql_model",
                 "--simql_model_file",   "model.tx",
                 "--nlp_param_file",     "simql_nlp_params.json",

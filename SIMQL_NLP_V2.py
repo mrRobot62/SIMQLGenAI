@@ -27,7 +27,7 @@ class SIMQL_NLP:
 
     """
 
-    tokinizer = None
+    tokenizer = None
     model = None 
     device = None
     mm = None           # DSL Model
