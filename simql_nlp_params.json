@@ -1,10 +1,10 @@
 {
     "device" : "cpu",
     "torch_threads": 1,
-    "tokenizer_max_length" : 256,  
+    "tokenizer_max_length" : 128,  
     "fp16":false,                 
     "temperature" : 0.2,
-    "num_beams" : 10,
+    "num_beams" : 4,
     "ngram_size" : 2,
     "learning_rates" : [1e-5, 2e-5, 3e-5, 5e-5],
     "learning_rate_idx" : 2,
@@ -19,5 +19,6 @@
     "top_k" : 50,
     "top_p" : 0.95,
     "dataloader_num_workers" : 8,
-    "system" : "osx-m3"
+    "system" : "osx-m3",
+    "pad_to_multiple_of" : 8
 }

@@ -42,6 +42,7 @@ class PromptGenerator:
         self.template = ""
         self.verbose = args.v
         self.template_suffix = ".txt"
+        self.data = None
 
     def run(self):
         for p_type in self.prompt_types:

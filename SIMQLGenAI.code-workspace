@@ -15,5 +15,18 @@
 		{
 			"path": "."
 		}
-	]
+    ],
+    "settings": {},
+
+    "python.envFile": "${workspaceFolder}/.env",
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "."
+    },
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "."
+    },
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "."
+    }
+    
 }

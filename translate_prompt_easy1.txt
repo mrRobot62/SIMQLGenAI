@@ -1,0 +1,3 @@
+prompt: erstelle mir einen MetaMesspunkt MMP_0815
+template:
+code:MMP_0815

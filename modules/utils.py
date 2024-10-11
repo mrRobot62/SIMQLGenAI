@@ -5,6 +5,24 @@ from datetime import datetime
 import string
 import fnmatch
 
+def split_text(text, separators):
+    """
+    Teilt den Text in Wörter auf, basierend auf den angegebenen Trennzeichen.
+    
+    :param text: Der zu teilende String
+    :param separators: Ein String mit allen möglichen Trennzeichen, z.B. ",.;"
+    :return: Eine Liste von Wörtern
+    """
+    # Erstelle ein reguläres Ausdrucksmuster, das alle Trennzeichen als mögliche Split-Punkte verwendet
+    pattern = f"[{re.escape(separators)}]+"
+    
+    # Teile den Text auf, indem du das Muster verwendest
+    words = re.split(pattern, text)
+    
+    # Entferne eventuell leere Wörter (falls mehrere Trennzeichen hintereinander vorkommen)
+    return [word for word in words if word.strip()]
+
+
 def search_key_in_array_of_dicts(array_of_dicts, key_to_search, return_all=False):
     """
     Sucht nach einem Key innerhalb eines Arrays von Dictionaries und gibt die zugehörigen Werte zurück.

@@ -368,7 +368,7 @@ class TraindataGeneratorV2:
         # )))
         # save_text_file('./', 'additional_tokens.txt', all_tokens)
 
-        print (f"Neue Tokens basierend auf PROMPTS & Code: {len(all_tokens)}")    
+        #print (f"Neue Tokens basierend auf PROMPTS & Code: {len(all_tokens)}")    
         try:
             with open(self.out_file, 'w') as json_file:
                 json.dump(examples, json_file, indent=2)

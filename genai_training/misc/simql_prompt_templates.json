@@ -1,7 +1,7 @@
 {
     "synonyms" :
         {
-            "synonym_daten": ["Daten", "Datensätze", "Sätze", "Messerte", "Fakten", "Werte", "Informationen", "Ergebnisse"],
+            "synonym_daten": ["Daten", "Datensätze", "Sätze", "Messwerte", "Fakten", "Werte", "Informationen", "Ergebnisse"],
             "synonym_wert" : ["Messwert", "Satz", "Datensatz", "Wert"]
         }
     ,

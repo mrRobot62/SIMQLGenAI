@@ -58,7 +58,11 @@ class SIMQL_NLP_Training:
         #timer = CodeTimer("Initialisierung")
         self._init_nlp_model()
         self.df_train = self._load_train_data_files()
-        self._calculate_token_count(self.df_train)
+        if self.verbose > 1:
+            #
+            # nur für Debugzwecke gedacht
+            self._calculate_token_count(self.df_train)
+
 
         #self.tbl_timer.add_row(['init', timer.stop()])
         if self.df_train.shape[0] > 0:
@@ -82,8 +86,9 @@ class SIMQL_NLP_Training:
                 tokens = self.tokenizer.tokenize(t)
                 token_counts.update(tokens)
 
-        for token, count in token_counts.items():
-            print(f"Token: {token}, Häufigkeit: {count}")
+        if self.verbose > 1:
+            for token, count in token_counts.items():
+                print(f"Token: {token}, Häufigkeit: {count}")
 
 
 
@@ -121,6 +126,8 @@ class SIMQL_NLP_Training:
         :return tokenizer Gibt ein Tokenizer-Objekt zurück
         """
         try:
+            #
+            # wenn das Gerät MPS fähig wird wird auch mps verwendet
             self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
             #
@@ -195,22 +202,27 @@ class SIMQL_NLP_Training:
         additional_tokens =  set()
         #
         # Prompts als Tokens aufnehmen
-        # SIMQL-Code als Tokens aufnehmen
+        # und einfache Bereinigungen
         for text in trained_data_json:
-            words = text['text'].split()
+            #words = text['text'].split()
+            words = split_text(text['text'], " ,.;")
             codes = text['code'].split()
             additional_tokens.update(words)
-            additional_tokens.update(codes)
+            #additional_tokens.update(codes)
 
+
+        print (f"Zusätzliche Tokens basieren auf Prompts & DSLCode (unbereinigt): {len(additional_tokens)}")
         additional_tokens = sorted(list(remove_entries_by_pattern(
             additional_tokens, 
             wildcard_patterns=["AUTO*","MMP*_*",".", "#", "#all", "#save"],
             regex_patterns=[r"\"MMP\d+_.+\"", r"\'MMP\d+_.+\'"]  
         )))
+        print (f"Bereinigt (doppelte entfernt)                                  : {len(additional_tokens)}")
         additional_tokens = sorted(list(remove_entries_by_pattern(
             additional_tokens, 
             regex_patterns=[r"\"", r"\'"]  
         )))
+        print (f"Bereinigt ('xxxx'-Strings entfernt)                            : {len(additional_tokens)}")
         # save_text_file('./', 'additional_tokens.txt', all_tokens)
 
 
@@ -252,7 +264,14 @@ class SIMQL_NLP_Training:
         train_dataset = train_dataset.map(self.preprocess_function, batched=True)
         eval_dataset = eval_dataset.map(self.preprocess_function, batched=True)
 
-        data_collator = DataCollatorForSeq2Seq(self.tokenizer, model=self.model)
+        data_collator = DataCollatorForSeq2Seq(
+            tokenizer=self.tokenizer, 
+            padding="max_length",
+            max_length=self.nlp_params['tokenizer_max_length'],
+            label_pad_token_id=-100, #default
+            model=self.model,
+            return_tensors='pt'
+        )
         tbl = PrettyTable()
 
         tbl.field_names = ['Training', 'Evaluate']
@@ -292,11 +311,15 @@ class SIMQL_NLP_Training:
         print(f"Pre-Trained Evaluierung (kann mehrere Minuten dauern).....")
 
         with CodeTimer("PRE-Trained Model Evaluierung - TIMER") as timer:
+            # genauere Beschreibung was hier passiert siehe README_TRAIN.md unter "Trainer.evaluate()"
             model_eval[training] = trainer.evaluate()
 
         self.tbl_timer.add_row(['Pre-Evaluierung', timer.stop()])
-        tbl.add_row(['pre-trained', json.dumps(model_eval[training],indent=4)])
-        print(f"Pre-Train :\n{ model_eval[training]} ")
+        if (len(model_eval) > 0):
+            tbl.add_row(['pre-trained', json.dumps(model_eval[training],indent=4)])
+            print(f"Pre-Train :\n{ model_eval[training]} ")
+        else:
+            print(f"vermutlich handelt es sich noch um ein untrainiertes Modell, daher keine Evaluierung möglich")
 
         #------------------------------------------------------------------------------------------------
         # ACHTUNG wenn man Verbose auf 2 oder größer setzt verlangsamt sich das Training enorm, es 
@@ -307,18 +330,32 @@ class SIMQL_NLP_Training:
         max_length = self.nlp_params['tokenizer_max_length']
         if self.verbose > 1:
             i=0
-            for example in eval_dataset:
-                print(f"{i:4d} erstelle Output für Evaluierungsdatensatz...")
-                input_text = example['text']
-                input_ids = self.tokenizer.encode(input_text, return_tensors='pt').to(self.device)
-                outputs = self.model.generate(
-                    input_ids,
-                    max_length = max_length,
-                    num_beams = self.nlp_params['num_beams'],
-                    early_stopping = True,
-                    no_repeat_ngram_size=2,
-                    do_sample=True
-                )
+            input_text = example['text']
+            batch = self.tokenizer([example['text'] for example in eval_dataset], return_tensors='pt', padding=True, truncation=True).to(self.device)
+            outputs = self.model.generate(
+                batch['input_ids'],
+                max_length = max_length,
+                padding="max_length",
+                #num_beams = self.nlp_params['num_beams'],
+                num_beams = self.nlp_params['num_beams'],
+                early_stopping = True,
+                no_repeat_ngram_size=2,
+                do_sample=True                
+                
+            )
+
+            # for example in eval_dataset:
+            #     print(f"{i:4d} erstelle Output für Evaluierungsdatensatz...")
+            #     input_text = example['text']
+            #     input_ids = self.tokenizer.encode(input_text, return_tensors='pt').to(self.device)
+            #     outputs = self.model.generate(
+            #         input_ids,
+            #         max_length = max_length,
+            #         num_beams = self.nlp_params['num_beams'],
+            #         early_stopping = True,
+            #         no_repeat_ngram_size=2,
+            #         do_sample=True
+            #     )
             dsl_code = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
             print(f"Eingabetext: {input_text}")
             print(f"Erwarteter DSL-Code: \n{example['code']}")
@@ -333,7 +370,11 @@ class SIMQL_NLP_Training:
             model_eval[training] = trainer.evaluate()
 
         self.tbl_timer.add_row(['POST-Evaluierung', timer.stop()])
-        tbl.add_row(['post-trained', json.dumps(model_eval[training], indent=4)])     
+        if len(model_eval) > 0:
+            tbl.add_row(['post-trained', json.dumps(model_eval[training], indent=4)])   
+        else:
+            tbl.add_row(['post-trained', 'no post training'])  
+
         self.model.save_pretrained(self.output_dir)
         self.tokenizer.save_pretrained(self.output_dir)
         print(f"\nModell erfolgreich feingetunt und gespeichert in: {self.output_dir}")
@@ -344,26 +385,44 @@ class SIMQL_NLP_Training:
 
     # Hilfsfunktion zum Tokenisieren der Daten
     def preprocess_function(self, examples):
-        #inputs = [ex["text"] for ex in examples]
+        #
+        # Prompts tokenizen
+        # Tokenisiere die Eingabe
         inputs = examples["text"]
-        #targets = [ex["code"] for ex in examples]
-        dsl_output = examples["code"]
-        max_length = self.nlp_params['tokenizer_max_length']
         model_inputs = self.tokenizer(
             inputs, 
-            max_length=max_length, 
+            padding="max_length", 
+            #padding=True,
             truncation=True, 
-            padding="max_length")
+            max_length=self.nlp_params["tokenizer_max_length"])
 
-        # Tokenisierung der Labels
-        with self.tokenizer.as_target_tokenizer():
-            labels = self.tokenizer(
-                dsl_output, 
-                max_length=max_length, 
-                truncation=True, 
-                padding="max_length")
+        # Tokenisiere das Ziel (DSL-Code)
+        labels = self.tokenizer(
+            examples["code"], 
+            padding="max_length", 
+            #padding=True,
+            truncation=True, 
+            max_length=self.nlp_params["tokenizer_max_length"])
 
+        # Füge die Labels hinzu
         model_inputs["labels"] = labels["input_ids"]
+
+
+        # model_inputs = self.tokenizer(
+        #     inputs, 
+        #     max_length=max_length, 
+        #     truncation=True, 
+        #     padding="max_length")
+
+        # # Tokenisierung der Labels
+        # with self.tokenizer.as_target_tokenizer():
+        #     labels = self.tokenizer(
+        #         dsl_output, 
+        #         max_length=max_length, 
+        #         truncation=True, 
+        #         padding="max_length")
+
+        # model_inputs["labels"] = labels["input_ids"]
         return model_inputs
 
 

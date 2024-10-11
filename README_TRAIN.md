@@ -43,7 +43,7 @@ Um ein Training zu starten, sollte die NLP_PARAMS Datei für den Trainingsfall o
 {
     "tokenizer_max_length" : 256,                   
     "temperature" : 0.2,
-    "num_beams" : 10,
+    "num_beams" : 4,
     "ngram_size" : 2,
     "learning_rates" : [1e-5, 2e-5, 3e-5, 5e-5],
     "learning_rate_idx" : 2,
@@ -56,7 +56,8 @@ Um ein Training zu starten, sollte die NLP_PARAMS Datei für den Trainingsfall o
     "save_steps" : 10000,
     "do_eval" : false,
     "top_k" : 50,
-    "top_p" : 0.95
+    "top_p" : 0.95,
+    "pad_to_multiple_of":8
 }
 
 ```
@@ -110,3 +111,33 @@ der eigentliche Trainer für unser Modell
 | **optimizers**           | (AdamW, None)      | Verwende `AdamW` und bei Bedarf angepasste Lernraten-Scheduler.      | Tuple bestehend aus (Optimizer, Scheduler). |
 | **preprocess_logits_for_metrics** | None     | Kann für spezielle Aufgaben angepasst werden, um Metriken korrekt zu berechnen. | Funktion zur Vorverarbeitung der Logits für die Metrikberechnung. |
 | **kwargs**               | None               | Gebe zusätzliche Parameter spezifisch für besondere Bedürfnisse an.  | Weitere zusätzliche Parameter, die spezifisch für den Trainer sein können. |
+
+### trainer.evaluate()
+Die Funktion trainer.evaluate() in der transformers-Bibliothek wird verwendet, um das Modell auf einem Evaluierungsdatensatz zu bewerten. Sie führt eine Evaluierung der Modellleistung durch, indem sie Metriken wie den Loss oder andere benutzerdefinierte Metriken auf dem bereitgestellten Evaluierungsdatensatz berechnet.
+
+Diese Methode verarbeitet das Modell auf dem Evaluierungsdatensatz und gibt eine Reihe von Metriken zurück, die dir helfen, die Qualität des Modells auf Daten zu beurteilen, die es noch nicht gesehen hat.
+
+| **Parameter**          | **Default Wert**    | **Best-Practice-Wert** | **Beschreibung**                                                                                                                                                          |
+|------------------------|---------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `eval_dataset`         | `None`              | Dein Evaluierungsdatensatz | Der Datensatz, auf dem das Modell evaluiert wird. Wenn nicht angegeben, wird der Datensatz verwendet, der während des Trainings als Evaluierungsdatensatz übergeben wurde. |
+| `ignore_keys`          | `None`              | `None`                  | Bestimmt, welche Schlüssel im Modell-Output ignoriert werden sollen. Kann nützlich sein, wenn der Output des Modells zusätzliche Informationen enthält, die irrelevant sind.|
+| `metric_key_prefix`    | `"eval"`            | `"eval"`                | Der Präfix, der den Evaluierungsmesswerten in der Rückgabe hinzugefügt wird (z.B. `eval_loss`, `eval_accuracy` usw.).                                                      |
+| `max_length`           | Modell-spezifisch   | Modellabhängig          | Maximale Länge der Eingabe/Generierung. Kann nützlich sein, um die Generierungslänge zu begrenzen.                                                                         |
+| `num_beams`            | Modell-spezifisch   | `5` oder `8`            | Anzahl der Beams für die Beam Search während der Generierung. Wird oft in Seq2Seq-Modellen wie T5 oder BART verwendet. Mehr Beams verbessern die Genauigkeit, kosten aber mehr Rechenleistung.  |
+| `length_penalty`       | `1.0`               | `1.0`                  | Strafterm für längere Sequenzen während der Generierung. Werte kleiner als 1.0 begünstigen kürzere Sequenzen, Werte größer als 1.0 begünstigen längere Sequenzen.         |
+| `predict_with_generate`| `False`             | `True`                 | Bestimmt, ob die Generierungsfunktion (`generate`) verwendet wird, um während der Evaluierung Vorhersagen zu treffen. Wird oft bei Seq2Seq-Modellen verwendet.            |
+
+
+## DataCollator Klasse
+data_collator = DataCollatorForSeq2Seq()
+
+| **Parameter**            | **Default Wert** | **Best-Practice-Wert** | **Beschreibung**                                                                                                                                                      |
+|--------------------------|------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `tokenizer`              | -                | Dein genutzter Tokenizer | Der Tokenizer, der verwendet wird, um die Sequenzen aufzufüllen (Padding) und zu tokenisieren.                                                                       |
+| `model`                  | `None`           | Dein genutztes Modell   | Das Seq2Seq-Modell, das verwendet wird, um modellabhängige Tokenisierungs- und Padding-Einstellungen zu berücksichtigen.                                              |
+| `padding`                | `True`           | `True` oder `"longest"` | Bestimmt, ob die Sequenzen gepaddet werden. Optionen: `True` (dynamisch paddet), `"longest"` (auf längste Sequenz im Batch paddet), `"max_length"` (auf feste Länge). |
+| `max_length`             | `None`           | Nur bei Bedarf setzen   | Maximale Länge der Sequenzen nach dem Padding. Wird verwendet, wenn alle Sequenzen auf eine feste Länge gebracht werden sollen.                                        |
+| `pad_to_multiple_of`     | `None`           | Potenz von 2 (z.B. 8, 16) | Padded Sequenzen auf ein Vielfaches dieser Zahl. Wird oft für Hardware-Optimierung verwendet.                                                                         |
+| `label_pad_token_id`     | `-100`           | `-100`                  | Der Token-ID-Wert, der für das Padding der Labels verwendet wird. Labels mit `-100` werden in den meisten Modellen beim Loss ignoriert.                               |
+| `ignore_pad_token_for_loss` | `True`        | `True`                  | Bestimmt, ob Padding-Token bei der Berechnung des Loss ignoriert werden.                                                                                              |
+| `return_tensors`         | `"pt"`           | `"pt"` oder `"tf"`      | Bestimmt das Format der zurückgegebenen Tensoren. Optionen: `"pt"` für PyTorch, `"tf"` für TensorFlow, `"np"` für NumPy.                                              |
