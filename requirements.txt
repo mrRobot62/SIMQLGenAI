@@ -1,0 +1,7 @@
+prettytable
+datasets
+numbers_parser
+protobuf
+transformers[torch]
+textx
+SentencePiece
